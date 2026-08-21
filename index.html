@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>P&amp;G Interactive Assessment Simulator — Switch, Grid &amp; Digit</title>
+<title>Candidate Assessment — IKONIK EYE SPECIALIST &amp; GENERAL HEALTH CENTRE SDN BHD</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@500;700&display=swap" rel="stylesheet">
@@ -34,17 +34,17 @@
   }
   .top .eyebrow{ font-size:12px; letter-spacing:0.12em; text-transform:uppercase; color:#9FB4D6; font-weight:600; margin:0 0 6px; }
   .top h1{ font-size:26px; font-weight:700; margin:0 0 8px; color:#fff; }
-  .top p{ font-size:14px; color:#C3CEE0; margin:0; max-width:600px; }
+  .top p{ font-size:14px; color:#C3CEE0; margin:0; max-width:640px; }
 
-  .tabs{ display:flex; gap:8px; margin-bottom:20px; border-bottom:1px solid var(--line); }
-  .tab{
-    flex:1; text-align:center; padding:14px 8px; cursor:pointer;
+  .steps{ display:flex; gap:8px; margin-bottom:20px; border-bottom:1px solid var(--line); }
+  .step{
+    flex:1; text-align:center; padding:14px 8px;
     font-family:'Space Grotesk',sans-serif; font-weight:600; font-size:15px;
     color:var(--ink-3); border-bottom:3px solid transparent; user-select:none;
-    transition:color .15s ease, border-color .15s ease;
   }
-  .tab.active{ color:var(--navy); border-bottom-color:var(--teal); }
-  .tab .sub{ display:block; font-family:'Inter',sans-serif; font-weight:400; font-size:11.5px; color:var(--ink-3); margin-top:2px; }
+  .step.active{ color:var(--navy); border-bottom-color:var(--teal); }
+  .step.done{ color:var(--teal-dark); }
+  .step.done::after{ content:' ✓'; }
 
   .panel{ display:none; }
   .panel.active{ display:block; }
@@ -55,16 +55,11 @@
   }
   .card h3{ margin:0 0 8px; font-size:17px; color:var(--navy); }
   .card p.desc{ margin:0 0 4px; font-size:13.5px; color:var(--ink-2); }
-  .row{ display:flex; gap:16px; flex-wrap:wrap; }
 
-  .statgrid{ display:grid; grid-template-columns:repeat(4,1fr); gap:10px; margin-bottom:16px; }
+  .statgrid{ display:grid; grid-template-columns:repeat(2,1fr); gap:10px; margin-bottom:16px; }
   .stat{ background:var(--card); border:1px solid var(--line); border-radius:12px; padding:12px 14px; }
   .stat .lbl{ font-size:11px; text-transform:uppercase; letter-spacing:.06em; color:var(--ink-3); font-weight:600; margin-bottom:4px; }
   .stat .val{ font-size:20px; font-weight:700; font-family:'Space Grotesk',sans-serif; color:var(--navy); }
-
-  .ladder{ display:flex; gap:4px; margin-top:6px; }
-  .ladder span{ height:8px; flex:1; border-radius:4px; background:var(--line); }
-  .ladder span.on{ background:var(--teal); }
 
   .timerwrap{ height:8px; background:var(--line); border-radius:4px; overflow:hidden; margin-bottom:18px; }
   .timerbar{ height:100%; background:var(--teal); width:100%; transition:width .2s linear, background .3s ease; }
@@ -84,14 +79,8 @@
   .btn.teal:hover{ background:var(--teal-dark); }
   .btn:disabled{ opacity:.45; cursor:not-allowed; }
 
-  .diffbtns{ display:flex; gap:8px; margin-top:12px; }
-  .diffbtns .btn{ flex:1; }
-  .diffbtns .btn.sel{ background:var(--teal-light); border-color:var(--teal); color:var(--teal-dark); }
-
-  /* Switch challenge symbol row */
   .symrow{ display:flex; gap:10px; justify-content:center; align-items:center; padding:14px 0; }
   .symbox{ width:56px; height:56px; display:flex; align-items:center; justify-content:center; background:var(--bg); border-radius:10px; border:1px solid var(--line); }
-  .arrowdown{ text-align:center; color:var(--ink-3); font-size:12px; margin:4px 0; text-transform:uppercase; letter-spacing:.08em; font-weight:600; }
   .funnel{ text-align:center; margin:10px 0; }
   .funnel span{ display:inline-block; background:var(--teal-light); color:var(--teal-dark); font-size:12px; font-weight:600; padding:6px 14px; border-radius:20px; }
 
@@ -101,26 +90,18 @@
     cursor:pointer; font-size:14px; background:#fff; transition:all .12s ease;
   }
   .choice:hover{ border-color:var(--teal); background:var(--teal-light); }
-  .choice.correct{ border-color:var(--teal); background:var(--teal-light); color:var(--teal-dark); font-weight:600; }
-  .choice.incorrect{ border-color:var(--red); background:var(--red-light); color:var(--red-dark); font-weight:600; }
+  .choice.picked{ border-color:var(--navy); background:#EEF1F6; }
   .choice.disabled{ pointer-events:none; }
 
-  .feedback{ margin-top:14px; padding:12px 14px; border-radius:10px; font-size:13.5px; display:none; }
-  .feedback.show{ display:block; }
-  .feedback.good{ background:var(--teal-light); color:var(--teal-dark); }
-  .feedback.bad{ background:var(--red-light); color:var(--red-dark); }
-
-  /* Digit challenge */
   .equation{ font-family:'JetBrains Mono',monospace; font-size:32px; text-align:center; padding:20px 0; color:var(--navy); font-weight:700; letter-spacing:2px; }
   .equation .blank{ display:inline-block; min-width:44px; border-bottom:3px solid var(--teal); color:var(--teal-dark); }
   .digitinput{ display:flex; justify-content:center; gap:10px; align-items:center; margin-top:6px; }
   .digitinput input{
-    width:90px; font-size:22px; text-align:center; font-family:'JetBrains Mono',monospace;
+    width:110px; font-size:22px; text-align:center; font-family:'JetBrains Mono',monospace;
     padding:10px; border-radius:10px; border:1px solid var(--line-strong); font-weight:700;
   }
   .digitinput input:focus{ outline:none; border-color:var(--teal); box-shadow:0 0 0 3px var(--teal-light); }
 
-  /* Grid challenge */
   .gridwrap{ display:flex; justify-content:center; margin:14px 0; }
   .gridboard{ display:grid; gap:6px; }
   .cellbtn{
@@ -129,19 +110,11 @@
   }
   .cellbtn.lit{ background:var(--navy); border-color:var(--navy); }
   .cellbtn.picked{ background:var(--teal); border-color:var(--teal); }
-  .cellbtn.correct{ background:var(--teal); border-color:var(--teal); }
-  .cellbtn.missed{ background:var(--red-light); border-color:var(--red); }
-  .cellbtn.wrong{ background:var(--red); border-color:var(--red); }
   .cellbtn.locked{ pointer-events:none; }
 
   .phaselabel{ text-align:center; font-family:'Space Grotesk',sans-serif; font-weight:600; font-size:15px; color:var(--navy); margin-bottom:6px; }
   .phasesub{ text-align:center; font-size:12.5px; color:var(--ink-3); margin-bottom:6px; }
 
-  .guide{ font-size:13px; color:var(--ink-2); }
-  .guide ul{ margin:6px 0 0; padding-left:18px; }
-  .guide li{ margin-bottom:4px; }
-
-  .toggleguide{ font-size:12.5px; color:var(--teal-dark); cursor:pointer; font-weight:600; user-select:none; }
   .pk-item{ padding:14px 0; border-bottom:1px solid var(--line); }
   .pk-item:last-child{ border-bottom:none; }
   .pk-q{ font-size:14.5px; margin-bottom:10px; color:var(--ink); }
@@ -153,19 +126,12 @@
   }
   .pk-scale button:hover{ border-color:var(--teal); background:var(--teal-light); }
   .pk-scale button.sel{ background:var(--teal); border-color:var(--teal); color:#fff; font-weight:600; }
-  .pk-groupname{ font-family:'Space Grotesk',sans-serif; font-weight:600; font-size:14px; color:var(--teal-dark); margin:18px 0 2px; text-transform:uppercase; letter-spacing:.05em; }
-  .pk-sec-head{ margin-bottom:4px; }
   .pk-sec-head h3{ margin:0 0 6px; }
-  .pk-driver{ display:inline-block; background:var(--teal-light); color:var(--teal-dark); font-size:11.5px; font-weight:600; padding:3px 10px; border-radius:20px; margin-bottom:8px; }
   .pk-opt{ border:1px solid var(--line-strong); border-radius:9px; padding:11px 13px; margin-bottom:7px; cursor:pointer; font-size:14px; transition:all .12s ease; }
   .pk-opt:hover{ border-color:var(--teal); background:var(--teal-light); }
   .pk-opt.sel{ border-color:var(--teal); background:var(--teal-light); font-weight:500; }
   .pk-warn{ font-size:13px; color:var(--red-dark); background:var(--red-light); padding:10px 12px; border-radius:9px; margin-top:12px; display:none; }
   .pk-warn.show{ display:block; }
-  .pk-bar{ height:6px; background:var(--line); border-radius:3px; overflow:hidden; margin:10px 0 4px; }
-  .pk-bar div{ height:100%; background:var(--teal); }
-  .pk-trait{ margin-bottom:12px; }
-  .pk-trait .nm{ display:flex; justify-content:space-between; font-size:13.5px; }
   .reggrid{ display:grid; grid-template-columns:1fr 1fr; gap:12px; }
   .regfield.full{ grid-column:1 / -1; }
   .regfield label{ display:block; font-size:12.5px; font-weight:600; color:var(--ink-2); margin-bottom:5px; }
@@ -173,13 +139,14 @@
   .regfield input:focus{ outline:none; border-color:var(--teal); box-shadow:0 0 0 3px var(--teal-light); }
   .consent{ display:flex; gap:9px; align-items:flex-start; font-size:13px; color:var(--ink-2); margin-top:14px; line-height:1.5; cursor:pointer; }
   .consent input{ margin-top:3px; flex-shrink:0; }
+  .notice{ font-size:13px; color:var(--ink-2); background:var(--amber-light); border:1px solid #EAD7AE; padding:12px 14px; border-radius:10px; margin-top:14px; line-height:1.6; }
   .pk-sendstatus{ display:none; margin-top:14px; padding:12px 14px; border-radius:10px; font-size:13.5px; background:var(--amber-light); color:var(--amber-dark); }
   .pk-sendstatus.show{ display:block; }
   .pk-sendstatus.good{ background:var(--teal-light); color:var(--teal-dark); }
   .pk-sendstatus.bad{ background:var(--red-light); color:var(--red-dark); }
   @media (max-width:620px){ .reggrid{ grid-template-columns:1fr; } }
   .startscreen{ text-align:center; padding:30px 10px; }
-  .startscreen p{ color:var(--ink-2); font-size:13.5px; max-width:520px; margin:6px auto 0; }
+  .startscreen p{ color:var(--ink-2); font-size:13.5px; max-width:540px; margin:6px auto 0; }
 </style>
 </head>
 <body>
@@ -191,11 +158,12 @@ window.PG_CONFIG = {
 
   HR_EMAIL: "hr@ikonik.com.my",
 
-  SUBMIT_ENDPOINT: "https://script.google.com/macros/s/AKfycbzb9eh--PeJNkJ4DTM891xW58hA1LN68NzDaY6lTiBITxR7LNeU9FZqEhHIsRUEldc14w/exec",
+  SUBMIT_ENDPOINT: "",
 
-  PEAK_TIME_LIMIT_MIN: 25,
-
-  SHOW_SCORE_TO_CANDIDATE: false
+  PART1_TIME_LIMIT_MIN: 25,
+  PART2_TIME_LIMIT_SEC: 360,
+  PART3_TIME_LIMIT_SEC: 360,
+  PART4_TIME_LIMIT_SEC: 360
 
 };
 window.PG_SCORES = {};
@@ -203,26 +171,25 @@ window.PG_SCORES = {};
 <div class="app">
 
   <div class="top">
-    <p class="eyebrow">Interactive assessment practice</p>
-    <h1>Switch · Grid · Digit simulator</h1>
-    <p>Adaptive, timed practice for P&amp;G's Aon smartPredict cognitive challenges. Answer correctly and the difficulty climbs; miss one and it eases back — the same mechanic the real test uses, so your score reflects the level you actually settle into.</p>
+    <p class="eyebrow">IKONIK EYE SPECIALIST &amp; GENERAL HEALTH CENTRE SDN BHD</p>
+    <h1>Candidate Assessment</h1>
+    <p>This assessment consists of four timed parts and must be completed in one sitting. Your responses are submitted automatically upon completion.</p>
   </div>
 
-  <div class="tabs">
-    <div class="tab active" data-tab="peak">PEAK<span class="sub">Behavioural</span></div>
-    <div class="tab" data-tab="switch">Switch<span class="sub">Deductive reasoning</span></div>
-    <div class="tab" data-tab="grid">Grid<span class="sub">Working memory</span></div>
-    <div class="tab" data-tab="digit">Digit<span class="sub">Rapid numeracy</span></div>
+  <div class="steps">
+    <div class="step active" id="step-1">Part 1</div>
+    <div class="step" id="step-2">Part 2</div>
+    <div class="step" id="step-3">Part 3</div>
+    <div class="step" id="step-4">Part 4</div>
   </div>
 
-  <!-- ============ PEAK PANEL ============ -->
-  <div class="panel active" id="panel-peak">
-    <div class="statgrid">
-      <div class="stat"><div class="lbl">Section</div><div class="val" id="pk-section">1 / 4</div></div>
-      <div class="stat"><div class="lbl">Answered</div><div class="val" id="pk-answered">0 / 77</div></div>
-      <div class="stat"><div class="lbl">Status</div><div class="val" id="pk-status" style="font-size:15px;">Not started</div></div>
-      <div class="stat"><div class="lbl">Time left</div><div class="val mono" id="pk-time">—</div></div>
-    </div>
+  <div class="statgrid">
+    <div class="stat"><div class="lbl">Progress</div><div class="val" id="hud-progress" style="font-size:15px;">Registration</div></div>
+    <div class="stat"><div class="lbl">Time left — this part</div><div class="val mono" id="hud-time">—</div></div>
+  </div>
+
+  <!-- ============ PART 1 PANEL ============ -->
+  <div class="panel active" id="panel-p1">
 
     <div class="card" id="pk-reg-card">
       <h3>Candidate registration</h3>
@@ -234,155 +201,106 @@ window.PG_SCORES = {};
         <div class="regfield"><label for="reg-email">Email address</label><input type="email" id="reg-email" autocomplete="email"></div>
         <div class="regfield full"><label for="reg-role">Position applied for</label><input type="text" id="reg-role" autocomplete="off"></div>
       </div>
-      <label class="consent"><input type="checkbox" id="reg-consent"> I confirm these details are correct and consent to my responses and personal details being submitted to the hiring team for recruitment purposes.</label>
+      <div class="notice">
+        <b>Before you begin, please note:</b><br>
+        &bull; Total duration: approximately <b>45 minutes</b>, across four timed parts (25 min / 6 min / 6 min / 6 min).<br>
+        &bull; The assessment must be completed in <b>one sitting</b>. Parts cannot be paused, repeated, or revisited.<br>
+        &bull; When a part's time expires, the assessment moves to the next part automatically.<br>
+        &bull; Please ensure a stable internet connection and an uninterrupted environment before starting.
+      </div>
+      <label class="consent"><input type="checkbox" id="reg-consent"> I confirm these details are correct and consent to my responses and personal details being submitted to IKONIK EYE SPECIALIST &amp; GENERAL HEALTH CENTRE SDN BHD for recruitment purposes.</label>
       <div class="pk-warn" id="pk-reg-error"></div>
       <button class="btn primary" id="pk-reg-submit" style="margin-top:14px;">Continue</button>
     </div>
 
     <div class="card" id="pk-start-card" style="display:none;">
-      <div id="pk-whois-wrap" style="display:none; margin-bottom:8px; font-size:13px; color:var(--ink-2);">Registered as <b id="pk-whois"></b></div>
       <div class="startscreen">
-        <h3>PEAK performance assessment</h3>
-        <p>Four sections: situational judgment, leadership, motivation, and personality. Untimed — the real assessment is untimed too. Answer honestly and consistently; the scoring model penalises contradictory answers more than average ones.</p>
-        <p style="margin-top:10px;">Around 77 items, roughly 20–25 minutes.</p>
-        <button class="btn primary" id="pk-start" style="margin-top:14px;">Begin assessment</button>
+        <h3>Part 1 of 4</h3>
+        <p>This part contains four short sections of workplace questions. Answer every item. There are no trick questions; select the response that most accurately reflects you.</p>
+        <p style="margin-top:10px;">Time limit: <b>25 minutes</b>. If time expires, your answers up to that point are recorded and the assessment continues to Part 2.</p>
+        <button class="btn primary" id="pk-start" style="margin-top:14px;">Begin Part 1</button>
       </div>
     </div>
 
     <div id="pk-play" style="display:none;">
-      <div id="pk-timerwrap" style="display:none;" class="timerwrap"><div class="timerbar" id="pk-timerbar"></div></div>
+      <div class="timerwrap"><div class="timerbar" id="pk-timerbar"></div></div>
       <div class="card" id="pk-body"></div>
       <div style="display:flex; gap:10px; justify-content:space-between; margin-bottom:16px;">
         <button class="btn" id="pk-prev">Back</button>
         <button class="btn primary" id="pk-next">Next section</button>
       </div>
     </div>
-
-    <div class="card" id="pk-end-card" style="display:none;">
-      <h3>Assessment submitted</h3>
-      <div id="pk-results"></div>
-      <div class="pk-sendstatus" id="pk-send-status"></div>
-      <div style="display:flex; gap:10px; margin-top:16px; flex-wrap:wrap;">
-        <button class="btn teal" id="pk-download">Download my responses</button>
-        <a class="btn" id="pk-mail" href="#" style="text-decoration:none; display:inline-block;">Email my responses</a>
-        <button class="btn" id="pk-copy">Copy responses</button>
-        <button class="btn" id="pk-review" style="display:none;">Review SJT answers</button>
-      </div>
-      <div id="pk-review-body" style="display:none; margin-top:18px;"></div>
-    </div>
   </div>
 
-  <!-- ============ SWITCH PANEL ============ -->
-  <div class="panel" id="panel-switch">
-    <div class="statgrid">
-      <div class="stat"><div class="lbl">Time left</div><div class="val mono" id="sw-time">6:00</div></div>
-      <div class="stat"><div class="lbl">Score</div><div class="val" id="sw-score">0 / 0</div></div>
-      <div class="stat"><div class="lbl">Streak</div><div class="val" id="sw-streak">0</div></div>
-      <div class="stat"><div class="lbl">Level</div><div class="val" id="sw-level">1 / 6</div>
-        <div class="ladder" id="sw-ladder"></div>
-      </div>
-    </div>
-
+  <!-- ============ PART 2 PANEL (Switch) ============ -->
+  <div class="panel" id="panel-p2">
     <div class="card" id="sw-start-card">
       <div class="startscreen">
-        <h3>Switch challenge</h3>
-        <p>You'll see a row of symbols and an operator (funnel). Work out what the operator does to the row, then pick the matching description. 6 minutes, unlimited questions, adaptive difficulty.</p>
-        <button class="btn primary" id="sw-start" style="margin-top:14px;">Start 6-minute session</button>
+        <h3>Part 2 of 4</h3>
+        <p>Two rows of symbols are shown. Row 1 changes into Row 2 according to a rule. Select the description that matches the rule. Answer as many questions as you can within the time limit.</p>
+        <p style="margin-top:10px;">Time limit: <b>6 minutes</b>. This part starts as soon as you press the button.</p>
+        <button class="btn primary" id="sw-start" style="margin-top:14px;">Begin Part 2</button>
       </div>
     </div>
 
     <div class="card" id="sw-play-card" style="display:none;">
       <div class="timerwrap"><div class="timerbar" id="sw-timerbar"></div></div>
-      <p class="desc">Row 1 passes through the operator below and becomes Row 2. Which rule explains the change?</p>
+      <p class="desc">Row 1 changes into Row 2. Which rule explains the change?</p>
       <div class="symrow" id="sw-row1"></div>
-      <div class="funnel"><span id="sw-funnel-label">operator</span></div>
+      <div class="funnel"><span>rule</span></div>
       <div class="symrow" id="sw-row2"></div>
       <div class="choices" id="sw-choices"></div>
-      <div class="feedback" id="sw-feedback"></div>
     </div>
 
     <div class="card" id="sw-end-card" style="display:none;">
       <div class="startscreen">
-        <h3>Session complete</h3>
-        <p id="sw-summary"></p>
-        <button class="btn primary" id="sw-restart" style="margin-top:10px;">Run another session</button>
-      </div>
-    </div>
-
-    <div class="card">
-      <span class="toggleguide" data-guide="sw-guide">+ Show operator reference</span>
-      <div class="guide" id="sw-guide" style="display:none; margin-top:10px;">
-        <ul>
-          <li><b>Reverse</b> — the row's order is flipped end-to-end.</li>
-          <li><b>Rotate</b> — every symbol shifts one position, wrapping around.</li>
-          <li><b>Swap ends</b> — only the first and last symbols trade places.</li>
-          <li><b>Mirror pair</b> — the two symbols in the middle swap.</li>
-          <li><b>Sort by size</b> — symbols are reordered smallest to largest.</li>
-        </ul>
+        <h3>Part 2 complete</h3>
+        <p>Your responses have been recorded.</p>
+        <button class="btn primary" id="sw-continue" style="margin-top:10px;">Continue to Part 3</button>
       </div>
     </div>
   </div>
 
-  <!-- ============ GRID PANEL ============ -->
-  <div class="panel" id="panel-grid">
-    <div class="statgrid">
-      <div class="stat"><div class="lbl">Round</div><div class="val" id="gr-round">0</div></div>
-      <div class="stat"><div class="lbl">Recall score</div><div class="val" id="gr-score">0 / 0</div></div>
-      <div class="stat"><div class="lbl">Distractor score</div><div class="val" id="gr-dscore">0 / 0</div></div>
-      <div class="stat"><div class="lbl">Level</div><div class="val" id="gr-level">1 / 3</div>
-        <div class="ladder" id="gr-ladder"></div>
-      </div>
-    </div>
-
+  <!-- ============ PART 3 PANEL (Grid) ============ -->
+  <div class="panel" id="panel-p3">
     <div class="card" id="gr-start-card">
       <div class="startscreen">
-        <h3>Grid challenge</h3>
-        <p>Memorize a pattern of highlighted cells, answer one interference puzzle, then click the cells you memorized. Both halves are scored — this is a dual-task working-memory test, not just memory.</p>
-        <button class="btn primary" id="gr-start" style="margin-top:14px;">Start round 1</button>
+        <h3>Part 3 of 4</h3>
+        <p>A pattern of highlighted cells is shown briefly. Answer the short question that follows, then select the highlighted cells from memory. Rounds continue until time expires.</p>
+        <p style="margin-top:10px;">Time limit: <b>6 minutes</b>. This part starts as soon as you press the button.</p>
+        <button class="btn primary" id="gr-start" style="margin-top:14px;">Begin Part 3</button>
       </div>
     </div>
 
     <div class="card" id="gr-play-card" style="display:none;">
-      <div class="phaselabel" id="gr-phaselabel">Memorize</div>
-      <div class="phasesub" id="gr-phasesub"></div>
       <div class="timerwrap"><div class="timerbar" id="gr-timerbar"></div></div>
+      <div class="phaselabel" id="gr-phaselabel"></div>
+      <div class="phasesub" id="gr-phasesub"></div>
+      <div class="timerwrap" style="height:5px;"><div class="timerbar" id="gr-phasebar" style="background:var(--navy);"></div></div>
       <div class="gridwrap"><div class="gridboard" id="gr-board"></div></div>
       <div class="choices" id="gr-dchoices" style="display:none;"></div>
       <div style="text-align:center; margin-top:14px;">
-        <button class="btn primary" id="gr-submit" style="display:none;">Submit recall</button>
+        <button class="btn primary" id="gr-submit" style="display:none;">Submit</button>
       </div>
-      <div class="feedback" id="gr-feedback"></div>
     </div>
 
-    <div class="card">
-      <span class="toggleguide" data-guide="gr-guide">+ Show strategy notes</span>
-      <div class="guide" id="gr-guide" style="display:none; margin-top:10px;">
-        <ul>
-          <li>Chunk the lit cells into a shape or path rather than memorizing coordinates one by one.</li>
-          <li>Scan in a fixed order every round (e.g. left-to-right, top-to-bottom) so encoding stays consistent under pressure.</li>
-          <li>Give the distractor puzzle full attention — it's scored independently of recall, so rushing it costs points without protecting your memory.</li>
-          <li>If you lose the exact pattern, recall the general region rather than guessing at random — partial credit beats a wild guess.</li>
-        </ul>
+    <div class="card" id="gr-end-card" style="display:none;">
+      <div class="startscreen">
+        <h3>Part 3 complete</h3>
+        <p>Your responses have been recorded.</p>
+        <button class="btn primary" id="gr-continue" style="margin-top:10px;">Continue to Part 4</button>
       </div>
     </div>
   </div>
 
-  <!-- ============ DIGIT PANEL ============ -->
-  <div class="panel" id="panel-digit">
-    <div class="statgrid">
-      <div class="stat"><div class="lbl">Time left</div><div class="val mono" id="dg-time">6:00</div></div>
-      <div class="stat"><div class="lbl">Score</div><div class="val" id="dg-score">0 / 0</div></div>
-      <div class="stat"><div class="lbl">Streak</div><div class="val" id="dg-streak">0</div></div>
-      <div class="stat"><div class="lbl">Level</div><div class="val" id="dg-level">1 / 5</div>
-        <div class="ladder" id="dg-ladder"></div>
-      </div>
-    </div>
-
+  <!-- ============ PART 4 PANEL (Digit) ============ -->
+  <div class="panel" id="panel-p4">
     <div class="card" id="dg-start-card">
       <div class="startscreen">
-        <h3>Digit challenge</h3>
-        <p>Fill in the missing digit so the equation holds true. Elementary arithmetic only — the constraint is speed, not difficulty. 6 minutes, ~8 seconds per question.</p>
-        <button class="btn primary" id="dg-start" style="margin-top:14px;">Start 6-minute session</button>
+        <h3>Part 4 of 4</h3>
+        <p>Fill in the missing number so that each equation is correct. Each question allows up to 8 seconds. Answer as many as you can within the time limit.</p>
+        <p style="margin-top:10px;">Time limit: <b>6 minutes</b>. Your full assessment is submitted automatically when this part ends.</p>
+        <button class="btn primary" id="dg-start" style="margin-top:14px;">Begin Part 4</button>
       </div>
     </div>
 
@@ -391,220 +309,161 @@ window.PG_SCORES = {};
       <div class="timerwrap" style="height:5px;"><div class="timerbar" id="dg-qtimerbar" style="background:var(--navy);"></div></div>
       <div class="equation" id="dg-equation"></div>
       <div class="digitinput">
-        <input type="number" id="dg-input" placeholder="?" min="1" max="9">
+        <input type="number" id="dg-input" placeholder="?">
         <button class="btn teal" id="dg-submit">Submit</button>
       </div>
-      <div class="feedback" id="dg-feedback"></div>
     </div>
 
-    <div class="card" id="dg-end-card" style="display:none;">
-      <div class="startscreen">
-        <h3>Session complete</h3>
-        <p id="dg-summary"></p>
-        <button class="btn primary" id="dg-restart" style="margin-top:10px;">Run another session</button>
-      </div>
-    </div>
-
-    <div class="card">
-      <span class="toggleguide" data-guide="dg-guide">+ Show strategy notes</span>
-      <div class="guide" id="dg-guide" style="display:none; margin-top:10px;">
-        <ul>
-          <li>Use elimination on the missing digit rather than solving algebraically — test the most likely candidates first.</li>
-          <li>Refresh times tables and complements to 10/20/100 — recall speed matters more than raw calculation ability.</li>
-          <li>If a question is taking too long, submit your best guess and move on — one slow question costs more than one wrong guess.</li>
-        </ul>
+    <div class="card" id="final-card" style="display:none;">
+      <h3>Assessment complete</h3>
+      <div id="final-results"></div>
+      <div class="pk-sendstatus" id="final-send-status"></div>
+      <div id="final-fallback" style="display:none; gap:10px; margin-top:16px; flex-wrap:wrap;">
+        <button class="btn teal" id="final-download">Download my responses</button>
+        <a class="btn" id="final-mail" href="#" style="text-decoration:none; display:inline-block;">Email my responses</a>
+        <button class="btn" id="final-copy">Copy responses</button>
       </div>
     </div>
   </div>
 
 </div>
-
 <script>
-document.querySelectorAll('.tab').forEach(t=>{
-  t.addEventListener('click', ()=>{
-    document.querySelectorAll('.tab').forEach(x=>x.classList.remove('active'));
-    document.querySelectorAll('.panel').forEach(x=>x.classList.remove('active'));
-    t.classList.add('active');
-    document.getElementById('panel-'+t.dataset.tab).classList.add('active');
-  });
-});
-document.querySelectorAll('.toggleguide').forEach(g=>{
-  g.addEventListener('click', ()=>{
-    const target = document.getElementById(g.dataset.guide);
-    const open = target.style.display !== 'none';
-    target.style.display = open ? 'none' : 'block';
-    g.textContent = (open ? '+ Show ' : '- Hide ') + g.textContent.replace(/^[+-] (Show|Hide) /,'');
-  });
-});
-
+/* ---------- shared helpers ---------- */
 function fmtTime(s){ const m=Math.floor(s/60); const r=s%60; return m+':' + (r<10?'0':'') + r; }
 function pick(arr){ return arr[Math.floor(Math.random()*arr.length)]; }
 function shuffle(a){ a=a.slice(); for(let i=a.length-1;i>0;i--){ const j=Math.floor(Math.random()*(i+1)); [a[i],a[j]]=[a[j],a[i]]; } return a; }
-function renderLadder(elId, level, max){
-  const el = document.getElementById(elId); el.innerHTML='';
-  for(let i=1;i<=max;i++){ const s=document.createElement('span'); if(i<=level) s.classList.add('on'); el.appendChild(s); }
-}
+
+/* ---------- flow controller ---------- */
+const FLOW = window.FLOW = {
+  part: 1,
+  assessmentStartedAt: null,
+  candidate: null,
+  peakResult: null,
+  finished: false,
+  goTo(n){
+    this.part = n;
+    for(let i=1;i<=4;i++){
+      const st = document.getElementById('step-'+i);
+      const pn = document.getElementById('panel-p'+i);
+      st.classList.remove('active','done');
+      if(i<n) st.classList.add('done');
+      if(i===n) st.classList.add('active');
+      pn.classList.toggle('active', i===n);
+    }
+    document.getElementById('hud-time').textContent = '—';
+    window.scrollTo({top:0, behavior:'smooth'});
+  },
+  setProgress(t){ document.getElementById('hud-progress').textContent = t; },
+  setTime(t){ document.getElementById('hud-time').textContent = t; }
+};
+
+window.addEventListener('beforeunload', (e)=>{
+  if(FLOW.assessmentStartedAt && !FLOW.finished){ e.preventDefault(); e.returnValue=''; }
+});
 
 /* ============================================================
-   PEAK PERFORMANCE ASSESSMENT
+   PART 1 — QUESTIONNAIRE
    ============================================================ */
 (function(){
   const CFG = window.PG_CONFIG;
 
+  /* Each option: t = text, w = weight 0-3 (internal), g = behavioural signal tag (internal).
+     Option display order is shuffled per candidate at load. */
   const SJT = [
-    {d:"Lead with Courage",
-     s:"In a team meeting, your manager proposes a plan you believe has a real flaw based on sales data you reviewed last week. Everyone else in the room seems ready to move forward.",
-     o:["Stay quiet and support the plan since your manager has more experience.",
-        "Raise your concern in the meeting, reference the specific data, and suggest an alternative.",
-        "Wait until after the meeting to email your manager privately with your concerns.",
-        "Voice general doubt about the plan but do not offer any data or alternative."],
-     c:1,
-     r:["Withholds information the team needs to make a good decision.",
-        "Raises the issue promptly, backed by evidence, with a constructive path forward.",
-        "Shows some courage but delays the correction until after a decision may be acted on.",
-        "Speaks up without substance; reads as complaining rather than contributing."]},
-    {d:"Lead with Courage",
-     s:"A senior colleague presents an idea you contributed during a brainstorm as entirely their own, in front of your director.",
-     o:["Let it go — raising it might make you look petty or difficult.",
-        "Confront the colleague in front of the director on the spot.",
-        "Speak to the colleague privately afterward, calmly clarify your contribution, and involve your manager if it happens again.",
-        "Vent to other teammates about the colleague's behaviour."],
-     c:2,
-     r:["Avoids the issue entirely — erodes your own contribution record over time.",
-        "Public confrontation escalates unnecessarily and damages team dynamics.",
-        "Direct, private, proportionate — resolves it while preserving the relationship.",
-        "Resolves nothing and looks like undermining a colleague behind their back."]},
-    {d:"Lead with Courage",
-     s:"Leadership has finalised a decision you believe could hurt long-term customer trust, even though it will meet this quarter's targets.",
-     o:["Implement it without question since it is already finalised.",
-        "Request a brief, respectful conversation to share your data, while committing to execute fully if the decision stands.",
-        "Quietly slow-walk the implementation, hoping the decision changes.",
-        "Raise the objection anonymously through a suggestion channel."],
-     c:1,
-     r:["Compliant but passive — misses a chance to surface a real risk.",
-        "Best balance of courage and execution: voice the concern, then commit regardless.",
-        "Passive resistance undermines execution and trust.",
-        "Avoids accountability and denies leadership the chance to engage directly."]},
-    {d:"Innovate for Growth",
-     s:"Your team's weekly report currently takes each person about three hours to compile, mostly manual data entry.",
-     o:["Keep the existing process — it is what has always worked.",
-        "Research a simple automation or template that could cut the time, and pilot it on your own report first.",
-        "Ask a teammate to permanently take over the reporting.",
-        "Raise the time cost in the next meeting without proposing anything."],
-     c:1,
-     r:["Misses an easy productivity and innovation win.",
-        "Low-risk way to test an improvement before asking the team to change.",
-        "Shifts the burden rather than solving the inefficiency.",
-        "Names the problem but adds no value toward solving it."]},
-    {d:"Innovate for Growth",
-     s:"You notice a competitor's new feature is gaining strong traction with a customer segment your brand currently serves poorly.",
-     o:["Ignore it — it is not part of your current project scope.",
-        "Bring the observation and supporting data to your manager, with a rough idea for how the team could test a response.",
-        "Assume the trend will pass and wait for leadership to raise it first.",
-        "Start building a full response plan alone without checking with anyone."],
-     c:1,
-     r:["Misses a market signal that could matter to the business.",
-        "Surfaces the insight with evidence and a starting idea — contributes without overstepping.",
-        "Passive; risks the business falling behind a real trend.",
-        "Good instinct but skips alignment — may duplicate effort or miss context."]},
-    {d:"Champion Productivity",
-     s:"You are assigned three deliverables due the same day, and partway through you realise you cannot finish all three to a high standard.",
-     o:["Push through and submit all three, accepting the quality may suffer.",
-        "Assess the relative impact of each, proactively flag the trade-offs to stakeholders, and focus your effort accordingly.",
-        "Complete only the task you find most interesting and explain the rest later.",
-        "Ask a teammate to fully take over one deliverable without checking their capacity."],
-     c:1,
-     r:["Spreads effort thin; all three end up mediocre with no one warned.",
-        "Transparent prioritisation with early communication — the hallmark of this driver.",
-        "Prioritises personal preference over business impact.",
-        "Solves your problem by potentially creating one for someone else."]},
-    {d:"Champion Productivity",
+    {d:"Voice & Conviction",
+     s:"In a team meeting, your manager proposes a plan. Based on data you reviewed last week, you believe the plan has a real flaw. Everyone else in the room seems ready to move forward.",
+     o:[{t:"Support the direction in the meeting, and re-check the data afterwards before deciding whether to raise anything.", w:1, g:"defers"},
+        {t:"Raise what the data showed during the discussion and ask how the plan accounts for it.", w:3, g:"direct-constructive"},
+        {t:"Mention my reservation to the manager privately once the meeting ends.", w:2, g:"private-delay"},
+        {t:"Ask a question that points toward the issue and see whether anyone else picks it up.", w:1, g:"indirect"}]},
+    {d:"Voice & Conviction",
+     s:"During a discussion with your director present, a senior colleague presents an idea you contributed in an earlier brainstorm as their own.",
+     o:[{t:"Build on the idea in the discussion, adding the details and reasoning that only the original contributor would know.", w:3, g:"composed-assert"},
+        {t:"Speak with the colleague one-to-one afterwards to align on how shared work is credited going forward.", w:2, g:"private-boundary"},
+        {t:"Let this one pass, and be more selective about where I share early ideas in future.", w:1, g:"withdraw"},
+        {t:"Check with another teammate from the brainstorm whether they remember the idea the same way I do.", w:1, g:"validation-seeking"}]},
+    {d:"Voice & Conviction",
+     s:"Leadership has finalised a decision that will meet this quarter's targets, but you believe it could hurt long-term customer trust.",
+     o:[{t:"Execute it fully — once a decision is finalised, reopening it creates more disruption than value.", w:1, g:"compliant"},
+        {t:"Request a short conversation to table my data, and commit to full execution whatever the outcome.", w:3, g:"voice-then-commit"},
+        {t:"Execute as decided, and record my reservation in writing so the risk is documented.", w:2, g:"cover-record"},
+        {t:"Start with the lower-risk parts first and monitor customer response before scaling the rest.", w:1, g:"quiet-resistance"}]},
+    {d:"Initiative & Improvement",
+     s:"Your team's weekly report takes each person about three hours to compile, most of it manual data entry.",
+     o:[{t:"Keep the current process for now — the reliability of the report matters more than the time it takes.", w:1, g:"status-quo"},
+        {t:"Trial a template or simple automation on my own report first, then show the team the result.", w:3, g:"pilot-first"},
+        {t:"Gather the team's views first so any change has full buy-in before anything is trialled.", w:2, g:"consensus-first"},
+        {t:"Add the time cost to the agenda of the next team meeting as a problem worth solving.", w:1, g:"raise-only"}]},
+    {d:"Initiative & Improvement",
+     s:"You notice a competitor's new offering is gaining strong traction with a customer segment your company currently serves poorly.",
+     o:[{t:"Hold the observation until I have built a complete analysis that is worth presenting.", w:1, g:"perfect-first"},
+        {t:"Share the observation with my manager early, with the data I have and a rough idea of how we could respond.", w:3, g:"early-signal"},
+        {t:"Track it quietly for a few more weeks to confirm it is a real trend and not noise.", w:2, g:"verify-first"},
+        {t:"Stay focused on my current priorities — responding to market moves sits with the leadership team.", w:1, g:"lane-keeping"}]},
+    {d:"Prioritisation & Focus",
+     s:"You are assigned three deliverables due on the same day. Partway through, you realise you cannot complete all three to a high standard.",
+     o:[{t:"Deliver all three by trimming each one down to what is essential.", w:2, g:"spread-thin"},
+        {t:"Rank them by impact, inform the stakeholders early which will move, and protect quality on the most important ones.", w:3, g:"transparent-triage"},
+        {t:"Complete the two I can finish fastest so the majority is delivered on time.", w:1, g:"easy-first"},
+        {t:"Extend my hours and push to complete all three at full standard.", w:2, g:"absorb-alone"}]},
+    {d:"Prioritisation & Focus",
      s:"Midway through a long-running project, you realise a step your team has always included no longer adds real value.",
-     o:["Keep doing it — it is the established process and not your place to question it.",
-        "Flag it to your team lead with a clear rationale, and suggest a way to test removing it.",
-        "Stop doing the step on your own without telling anyone.",
-        "Mention it once in passing and drop the topic if no one responds."],
-     c:1,
-     r:["Preserves waste rather than challenging it.",
-        "Constructive challenge with a proposed test — improves the process without unilateral risk.",
-        "Unilateral change can break downstream dependencies you cannot see.",
-        "Raises the idea without follow-through; unlikely to change anything."]},
-    {d:"Execute with Excellence",
-     s:"Two days from a deadline, you discover an error in data you already submitted to a stakeholder for a decision.",
-     o:["Wait to see if anyone notices; correct it only if asked.",
-        "Immediately notify the stakeholder, provide the corrected data, and explain the impact on decisions already made.",
-        "Quietly fix it in your own files without telling the stakeholder, since the deadline is close.",
-        "Attribute the error to a data source and let the stakeholder investigate."],
-     c:1,
-     r:["Risks a decision being made on bad data — a serious failure if found later.",
-        "Owns the mistake immediately and gives the stakeholder what they need to correct course.",
-        "Leaves the stakeholder acting on incorrect information.",
-        "Deflects accountability instead of taking it."]},
-    {d:"Execute with Excellence",
-     s:"You are given a task with a vague brief and a tight deadline, and your manager is unreachable for several hours.",
-     o:["Wait until your manager is available before starting anything.",
-        "Make reasonable assumptions from context, start the task, and clearly flag your assumptions for review.",
-        "Guess quickly and submit without noting any assumptions.",
-        "Ask a peer with no context on the project to just tell you what to do."],
-     c:1,
-     r:["Wastes available time and puts the deadline at risk.",
-        "Keeps work moving while staying transparent and correctable.",
-        "Moves fast but hides risk from whoever reviews the work.",
-        "Outsources judgment to someone without the context to give a good answer."]},
-    {d:"Execute with Excellence",
-     s:"A recurring administrative task you own has become tedious, and you have noticed small mistakes creeping into your own work.",
-     o:["Keep going as before, since the mistakes have been minor so far.",
-        "Build in a quick self-check step and flag the pattern to your manager before it becomes bigger.",
-        "Ask someone else to check every piece of your work going forward.",
-        "Say nothing and hope the mistakes are not noticed."],
-     c:1,
-     r:["Normalises declining quality rather than addressing it early.",
-        "Self-aware, proactive fix plus transparency.",
-        "Outsources the fix instead of correcting the root cause.",
-        "Highest-risk option — hides a known quality issue."]},
-    {d:"Bring Out Your Best",
-     s:"A new team member is struggling to keep up in their first two weeks, and it is starting to affect a shared deliverable.",
-     o:["Report the performance gap to your manager immediately and let them handle it.",
-        "Offer to walk them through what they are struggling with and check in regularly, while keeping your manager informed.",
-        "Take over their portion of the work yourself to avoid delays.",
-        "Say nothing, assuming they will figure it out with time."],
-     c:1,
-     r:["Escalation without any attempt to support first.",
-        "Direct support, development of a colleague, and appropriate visibility to the manager.",
-        "Solves the deadline but leaves the real skill gap unaddressed.",
-        "Passive; risks both the deliverable and the new hire's confidence."]},
-    {d:"Bring Out Your Best",
-     s:"You receive critical feedback from your manager about a presentation you were proud of.",
-     o:["Defend your choices point by point in the moment.",
-        "Listen fully, ask clarifying questions, thank them, and reflect before deciding what to change.",
-        "Agree with everything immediately, even points you do not understand, to avoid conflict.",
-        "Say little in the moment, then vent to a colleague afterward."],
-     c:1,
-     r:["Defensive reactions signal low coachability.",
-        "Open, reflective response — shows self-awareness and genuine openness to growth.",
-        "Surface-level agreement does not lead to real improvement.",
-        "Avoids addressing the feedback constructively at all."]}
+     o:[{t:"Keep it — long-standing steps often protect against risks that are not obvious from one seat.", w:1, g:"preserve"},
+        {t:"Suggest to the team lead that we trial one cycle without the step and compare the outcomes.", w:3, g:"test-remove"},
+        {t:"Streamline it out of my own version of the process first, and share the time saved once it proves out.", w:1, g:"unilateral"},
+        {t:"Ask around the team first to find out why the step was originally introduced.", w:2, g:"investigate-first"}]},
+    {d:"Accountability & Quality",
+     s:"Two days before a deadline, you discover an error in data you already submitted to a stakeholder who is using it for a decision.",
+     o:[{t:"Contact the stakeholder immediately, explain the error and its impact on anything already decided, and provide the corrected data.", w:3, g:"own-immediately"},
+        {t:"Correct the figures and resend the file with a short note describing what changed.", w:2, g:"correct-minimal"},
+        {t:"Verify the error thoroughly first so that I only raise it once — even if that takes another day.", w:1, g:"verify-delay"},
+        {t:"Include the correction in the next scheduled update so the change flows through the normal channel.", w:1, g:"normalise"}]},
+    {d:"Accountability & Quality",
+     s:"You are given a task with a vague brief and a tight deadline. Your manager is unreachable for the next several hours.",
+     o:[{t:"Hold until my manager replies — working on the wrong thing wastes more time than waiting.", w:1, g:"wait"},
+        {t:"Start with reasonable assumptions from context, and send a short note listing my assumptions for correction.", w:3, g:"assume-and-flag"},
+        {t:"Draft two different interpretations so that whichever was meant, something is ready.", w:2, g:"hedge"},
+        {t:"Ask a senior colleague familiar with similar work how they would read the brief, and follow that.", w:2, g:"borrowed-judgment"}]},
+    {d:"Accountability & Quality",
+     s:"A recurring task you own has become routine, and you have noticed small mistakes starting to appear in your own work.",
+     o:[{t:"Tighten my focus during the task — the mistakes are small and within my control.", w:1, g:"willpower"},
+        {t:"Add a short self-check step, and let my manager know I have noticed the pattern.", w:3, g:"system-and-flag"},
+        {t:"Arrange to rotate the task with a teammate so fresh eyes reduce the errors.", w:2, g:"share-load"},
+        {t:"Restructure the task into one focused block each week so it gets my full attention.", w:2, g:"restructure"}]},
+    {d:"Coachability & Support",
+     s:"A new team member is struggling in their first two weeks, and it is starting to affect a deliverable you share.",
+     o:[{t:"Give them space — most people find their footing within the first month.", w:1, g:"passive"},
+        {t:"Walk them through the parts they are stuck on, check in regularly, and keep my manager lightly informed.", w:3, g:"support-and-visibility"},
+        {t:"Restructure the deliverable so their portion no longer sits on the critical path.", w:2, g:"shield"},
+        {t:"Let my manager know early so proper support can be arranged before the deadline slips.", w:2, g:"escalate-early"}]},
+    {d:"Coachability & Support",
+     s:"Your manager gives you critical feedback on a piece of work you were proud of.",
+     o:[{t:"Walk them through the reasoning behind my choices first, so the feedback accounts for the full context.", w:1, g:"defend-first"},
+        {t:"Ask questions until I understand exactly what they would change, then take time to consider it before responding.", w:3, g:"inquire-reflect"},
+        {t:"Accept the feedback and implement all of the changes in the next version.", w:2, g:"comply"},
+        {t:"Seek a second opinion from a colleague whose judgment I trust before deciding what to change.", w:2, g:"triangulate"}]}
   ];
+  const SJT_MAX_PER_Q = 3;
 
-  const LEADERSHIP = [
-    ["Taking initiative and ownership", [
-      "I tend to start working on a solution before being asked to.",
-      "When something goes wrong on a project I am part of, I look first at what I could have done differently.",
-      "I would rather propose an imperfect plan today than wait for a perfect one next week.",
-      "I follow through on commitments even when no one is checking on me."]],
-    ["Developing and influencing others", [
-      "I enjoy helping less experienced colleagues build their skills, even when it slows me down.",
-      "I can usually get people who disagree with me to at least understand my reasoning.",
-      "I give credit to others for their contributions, even in front of senior people.",
-      "I find it natural to adjust how I explain something depending on who I am talking to."]],
-    ["Strategic and big-picture thinking", [
-      "I regularly think about how my day-to-day work connects to broader team or company goals.",
-      "I notice patterns across separate problems that others treat as unrelated.",
-      "I am comfortable making a decision with incomplete information when time is limited."]],
-    ["Resilience and adaptability", [
-      "Setbacks affect my mood, but they rarely affect my next decision.",
-      "I can change my approach quickly when new information shows my original plan was wrong.",
-      "I stay effective even when priorities shift with little warning."]]
+  /* per-candidate randomised display order for each question */
+  SJT.forEach(item=>{ item.order = shuffle([0,1,2,3]); });
+
+  /* Leadership: flat list, interleaved across dimensions, some reverse-keyed (rev) */
+  const LEAD_ITEMS = [
+    {t:"Initiative & ownership", q:"I tend to start working on a solution before being asked to."},
+    {t:"Developing & influencing", q:"I enjoy helping less experienced colleagues build their skills, even when it slows me down."},
+    {t:"Strategic thinking", q:"I regularly think about how my day-to-day work connects to broader team or company goals."},
+    {t:"Resilience & adaptability", q:"I can change my approach quickly when new information shows my original plan was wrong."},
+    {t:"Initiative & ownership", q:"When something goes wrong on a project I am part of, I look first at what I could have done differently."},
+    {t:"Developing & influencing", q:"I find it hard to shift someone's position once they have made up their mind.", rev:true},
+    {t:"Strategic thinking", q:"I notice patterns across separate problems that others treat as unrelated."},
+    {t:"Resilience & adaptability", q:"I stay effective even when priorities shift with little warning."},
+    {t:"Initiative & ownership", q:"I prefer to wait for clear direction before starting a significant piece of work.", rev:true},
+    {t:"Developing & influencing", q:"I give credit to others for their contributions, even in front of senior people."},
+    {t:"Strategic thinking", q:"I am comfortable making a decision with incomplete information when time is limited."},
+    {t:"Resilience & adaptability", q:"Setbacks affect my mood, but they rarely affect my next decision."},
+    {t:"Initiative & ownership", q:"I follow through on commitments even when no one is checking on me."},
+    {t:"Developing & influencing", q:"I find it natural to adjust how I explain something depending on who I am talking to."}
   ];
 
   const MOTIVATION = [
@@ -621,100 +480,86 @@ function renderLadder(elId, level, max){
     "I am more driven by avoiding failure than by chasing a stretch goal."
   ];
 
-  const PERSONALITY = [
-    ["Assertiveness", ["I speak up in group settings even when my view is not the popular one.",
-      "I am comfortable pushing back on a request I think is unreasonable.",
-      "I state my opinions directly rather than hinting at them.",
-      "I find it easy to say no when I need to.",
-      "In a disagreement, I state my position clearly rather than staying vague to keep the peace."]],
-    ["Conscientiousness", ["I plan my work in advance rather than tackling it as it comes.",
-      "I double-check details before submitting something important.",
-      "I keep commitments even when they become inconvenient.",
-      "I finish tasks fully rather than leaving loose ends for later.",
-      "I keep my workspace and files organised without being asked."]],
-    ["Composure", ["I stay calm when a plan falls apart at the last minute.",
-      "Criticism does not throw off my focus for the rest of the day.",
-      "I make better decisions, not worse ones, when I am under pressure.",
-      "I recover quickly after a stressful interaction.",
-      "I do not take a colleague's bad mood personally."]],
-    ["Team orientation", ["I get energy from working closely with other people.",
-      "I go out of my way to include quieter voices in a discussion.",
-      "I find it easy to build rapport with people I have just met.",
-      "I would rather solve a hard problem as a team than alone.",
-      "I check in on teammates who seem to be struggling."]],
-    ["Openness to innovation", ["I actively look for a better way to do routine tasks.",
-      "I enjoy exploring ideas that have no obvious immediate use.",
-      "I welcome being challenged on how I have always done something.",
-      "I am curious about fields outside my own area of expertise.",
-      "I get more excited by ambiguous problems than by well-defined ones."]],
-    ["Drive to win", ["I compare my results against the best performer, not the average.",
-      "Losing bothers me enough to change how I prepare next time.",
-      "I set personal targets that are harder than what is expected of me.",
-      "I enjoy environments where performance is visibly ranked.",
-      "I would choose a harder goal with a bigger payoff over an easy guaranteed one."]],
-    ["Adaptability", ["I adjust quickly when a project's scope changes midway.",
-      "I can switch between very different tasks in the same day without losing momentum.",
-      "New tools or systems do not slow me down for long.",
-      "I stay productive when working with a team I have never worked with before.",
-      "I treat a changed deadline as a new plan to solve, not a problem to complain about."]],
-    ["Decisiveness", ["I am willing to make a call without waiting for full certainty.",
-      "I would rather try an unproven approach with upside than repeat a safe one with none.",
-      "I make decisions quickly once I have the key facts.",
-      "I am comfortable being accountable for a decision that does not work out.",
-      "I do not need consensus before acting on something time-sensitive."]]
+  /* Personality: flat interleaved list, mixed keying. t = internal trait, rev = reverse-scored */
+  const PERS_ITEMS = [
+    {t:"Assertiveness", q:"I speak up in group settings even when my view is not the popular one."},
+    {t:"Conscientiousness", q:"I plan my work in advance rather than tackling it as it comes."},
+    {t:"Composure", q:"I stay calm when a plan falls apart at the last minute."},
+    {t:"Team orientation", q:"I get energy from working closely with other people."},
+    {t:"Openness", q:"I actively look for a better way to do routine tasks."},
+    {t:"Drive", q:"I compare my results against the best performer, not the average."},
+    {t:"Adaptability", q:"I adjust quickly when a project's scope changes midway."},
+    {t:"Decisiveness", q:"I am willing to make a call without waiting for full certainty."},
+    {t:"Assertiveness", q:"I often go along with a group decision I privately disagree with.", rev:true},
+    {t:"Conscientiousness", q:"I double-check details before submitting something important."},
+    {t:"Composure", q:"An unexpected criticism can stay on my mind for the rest of the day.", rev:true},
+    {t:"Team orientation", q:"I go out of my way to include quieter voices in a discussion."},
+    {t:"Openness", q:"I prefer refining a proven method over experimenting with a new one.", rev:true},
+    {t:"Drive", q:"Falling short of a goal changes how I prepare the next time."},
+    {t:"Adaptability", q:"I work best when my week follows a consistent, predictable structure.", rev:true},
+    {t:"Decisiveness", q:"I prefer to sleep on significant decisions before committing to them.", rev:true},
+    {t:"Assertiveness", q:"I am comfortable pushing back on a request I think is unreasonable."},
+    {t:"Conscientiousness", q:"I sometimes leave smaller details for later when a deadline is close.", rev:true},
+    {t:"Composure", q:"I make better decisions, not worse ones, when I am under pressure."},
+    {t:"Team orientation", q:"I find long group discussions drain more energy than they give.", rev:true},
+    {t:"Openness", q:"I enjoy exploring ideas that have no obvious immediate use."},
+    {t:"Drive", q:"I set personal targets that are harder than what is expected of me."},
+    {t:"Adaptability", q:"I can switch between very different tasks in the same day without losing momentum."},
+    {t:"Decisiveness", q:"I make decisions quickly once I have the key facts."},
+    {t:"Assertiveness", q:"I state my opinions directly rather than hinting at them."},
+    {t:"Conscientiousness", q:"I keep commitments even when they become inconvenient."},
+    {t:"Composure", q:"I recover quickly after a stressful interaction."},
+    {t:"Team orientation", q:"I would rather solve a hard problem as a team than alone."},
+    {t:"Openness", q:"I welcome being challenged on how I have always done something."},
+    {t:"Drive", q:"I am satisfied hitting the agreed target; exceeding it is a bonus rather than a goal.", rev:true},
+    {t:"Adaptability", q:"New tools or systems do not slow me down for long."},
+    {t:"Decisiveness", q:"I am comfortable being accountable for a decision that does not work out."},
+    {t:"Assertiveness", q:"In a disagreement, I state my position clearly rather than staying vague to keep the peace."},
+    {t:"Conscientiousness", q:"I finish tasks fully rather than leaving loose ends for later."},
+    {t:"Composure", q:"I do not take a colleague's bad mood personally."},
+    {t:"Team orientation", q:"I check in on teammates who seem to be struggling."},
+    {t:"Openness", q:"I am curious about fields outside my own area of expertise."},
+    {t:"Drive", q:"I would choose a harder goal with a bigger payoff over an easy guaranteed one."},
+    {t:"Adaptability", q:"I treat a changed deadline as a new plan to solve, not a problem to complain about."},
+    {t:"Decisiveness", q:"I do not need consensus before acting on something time-sensitive."}
   ];
 
   const SCALE = ["Strongly disagree","Disagree","Neutral","Agree","Strongly agree"];
 
   const answers = { sjt:{}, lead:{}, motiv:{}, pers:{} };
   let section = 0;
-  let candidate = null;
-  let startedAt = null;
   let timeLeft = 0;
   let timerId = null;
-  let submitted = false;
-  const TOTAL_ITEMS = SJT.length + 14 + MOTIVATION.length + 40;
+  let peakDone = false;
+  const TOTAL_ITEMS = SJT.length + LEAD_ITEMS.length + MOTIVATION.length + PERS_ITEMS.length;
 
   function countAnswered(){
     return Object.keys(answers.sjt).length + Object.keys(answers.lead).length
          + Object.keys(answers.motiv).length + Object.keys(answers.pers).length;
   }
   function updateStats(){
-    document.getElementById('pk-answered').textContent = countAnswered()+' / '+TOTAL_ITEMS;
-    document.getElementById('pk-section').textContent = Math.min(section+1,4)+' / 4';
+    FLOW.setProgress('Part 1 · Section '+Math.min(section+1,4)+' of 4 · '+countAnswered()+'/'+TOTAL_ITEMS+' answered');
   }
 
-  /* ---------- timer ---------- */
   function startTimer(){
-    if(!CFG.PEAK_TIME_LIMIT_MIN || CFG.PEAK_TIME_LIMIT_MIN<=0){
-      document.getElementById('pk-time').textContent = 'Untimed';
-      return;
-    }
-    timeLeft = CFG.PEAK_TIME_LIMIT_MIN*60;
-    document.getElementById('pk-timerwrap').style.display='block';
+    timeLeft = CFG.PART1_TIME_LIMIT_MIN*60;
     tick();
     timerId = setInterval(tick, 1000);
   }
   function tick(){
-    document.getElementById('pk-time').textContent = fmtTime(Math.max(0,timeLeft));
-    const total = CFG.PEAK_TIME_LIMIT_MIN*60;
+    FLOW.setTime(fmtTime(Math.max(0,timeLeft)));
+    const total = CFG.PART1_TIME_LIMIT_MIN*60;
     const bar = document.getElementById('pk-timerbar');
     bar.style.width = Math.max(0,timeLeft)/total*100+'%';
     bar.className = 'timerbar' + (timeLeft<120?' danger':timeLeft<300?' warn':'');
-    if(timeLeft<=0){
-      clearInterval(timerId);
-      finish(true);
-      return;
-    }
+    if(timeLeft<=0){ clearInterval(timerId); completePart1(true); return; }
     timeLeft--;
   }
-  function stopTimer(){ if(timerId) clearInterval(timerId); }
 
   /* ---------- registration ---------- */
   function validEmail(v){ return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(v); }
   function validPhone(v){ return /^[0-9+\-\s()]{8,20}$/.test(v); }
   function validIC(v){ return v.trim().length>=6; }
-
   function showRegError(msg){
     const e = document.getElementById('pk-reg-error');
     e.textContent = msg; e.classList.add('show');
@@ -727,28 +572,23 @@ function renderLadder(elId, level, max){
     const email = document.getElementById('reg-email').value.trim();
     const role = document.getElementById('reg-role').value.trim();
     const consent = document.getElementById('reg-consent').checked;
-
     if(!name){ return showRegError('Enter your full name.'); }
     if(!validIC(ic)){ return showRegError('Enter a valid identification number.'); }
     if(!validPhone(phone)){ return showRegError('Enter a valid phone number.'); }
     if(!validEmail(email)){ return showRegError('Enter a valid email address.'); }
     if(!consent){ return showRegError('You must agree before starting.'); }
-
     document.getElementById('pk-reg-error').classList.remove('show');
-    candidate = { name, ic, phone, email, role };
+    FLOW.candidate = { name, ic, phone, email, role };
     document.getElementById('pk-reg-card').style.display='none';
     document.getElementById('pk-start-card').style.display='block';
-    document.getElementById('pk-whois').textContent = name;
-    document.getElementById('pk-whois-wrap').style.display='block';
   });
-
   ['reg-name','reg-ic','reg-phone','reg-email'].forEach(id=>{
     document.getElementById(id).addEventListener('input', ()=>{
       document.getElementById('pk-reg-error').classList.remove('show');
     });
   });
 
-  /* ---------- item rendering ---------- */
+  /* ---------- rendering ---------- */
   function likertItem(qtext, key, store){
     const wrap = document.createElement('div'); wrap.className='pk-item';
     const q = document.createElement('div'); q.className='pk-q'; q.textContent=qtext;
@@ -775,16 +615,15 @@ function renderLadder(elId, level, max){
     body.appendChild(head);
 
     if(section===0){
-      head.innerHTML = '<h3>Section 1 — Situational judgment</h3><p class="desc">Choose the single response you would most likely take. Read all four before deciding.</p>';
+      head.innerHTML = '<h3>Section 1 of 4</h3><p class="desc">For each situation, read all four responses, then select the one closest to what you would actually do.</p>';
       SJT.forEach((item,qi)=>{
         const wrap = document.createElement('div'); wrap.className='pk-item';
-        const badge = document.createElement('div'); badge.className='pk-driver'; badge.textContent=item.d;
         const q = document.createElement('div'); q.className='pk-q';
         q.textContent = (qi+1)+'. '+item.s;
-        wrap.appendChild(badge); wrap.appendChild(q);
-        item.o.forEach((opt,oi)=>{
+        wrap.appendChild(q);
+        item.order.forEach((oi,pos)=>{
           const d = document.createElement('div'); d.className='pk-opt';
-          d.textContent = String.fromCharCode(65+oi)+'. '+opt;
+          d.textContent = String.fromCharCode(65+pos)+'. '+item.o[oi].t;
           if(answers.sjt[qi]===oi) d.classList.add('sel');
           d.addEventListener('click', ()=>{
             answers.sjt[qi]=oi;
@@ -798,251 +637,98 @@ function renderLadder(elId, level, max){
       });
     }
     else if(section===1){
-      head.innerHTML = '<h3>Section 2 — Leadership questionnaire</h3><p class="desc">Rate how accurately each statement describes you. There are no correct answers, but consistency matters.</p>';
-      let idx=0;
-      LEADERSHIP.forEach(([grp,items])=>{
-        const g = document.createElement('div'); g.className='pk-groupname'; g.textContent=grp;
-        body.appendChild(g);
-        items.forEach(t=>{ body.appendChild(likertItem(t, idx, answers.lead)); idx++; });
-      });
+      head.innerHTML = '<h3>Section 2 of 4</h3><p class="desc">Rate how accurately each statement describes you.</p>';
+      LEAD_ITEMS.forEach((it,idx)=>{ body.appendChild(likertItem(it.q, idx, answers.lead)); });
     }
     else if(section===2){
-      head.innerHTML = '<h3>Section 3 — Motivation questionnaire</h3><p class="desc">This checks fit between what genuinely motivates you and what the role offers day to day. Answer honestly rather than to an assumed ideal.</p>';
+      head.innerHTML = '<h3>Section 3 of 4</h3><p class="desc">Rate how accurately each statement describes you.</p>';
       MOTIVATION.forEach((t,i)=>{ body.appendChild(likertItem(t, i, answers.motiv)); });
     }
     else {
-      head.innerHTML = '<h3>Section 4 — Personality</h3><p class="desc">Forty items across eight trait dimensions. Answer as you actually are.</p>';
-      let idx=0;
-      PERSONALITY.forEach(([trait,items])=>{
-        const g = document.createElement('div'); g.className='pk-groupname'; g.textContent=trait;
-        body.appendChild(g);
-        items.forEach(t=>{ body.appendChild(likertItem(t, idx, answers.pers)); idx++; });
-      });
+      head.innerHTML = '<h3>Section 4 of 4</h3><p class="desc">Rate how accurately each statement describes you.</p>';
+      PERS_ITEMS.forEach((it,idx)=>{ body.appendChild(likertItem(it.q, idx, answers.pers)); });
     }
 
     const warn = document.createElement('div'); warn.className='pk-warn'; warn.id='pk-warn';
     body.appendChild(warn);
 
     document.getElementById('pk-prev').style.visibility = section===0 ? 'hidden' : 'visible';
-    document.getElementById('pk-next').textContent = section===3 ? 'Finish and submit' : 'Next section';
+    document.getElementById('pk-next').textContent = section===3 ? 'Complete Part 1' : 'Next section';
     updateStats();
     window.scrollTo({top:0, behavior:'smooth'});
   }
 
   function sectionComplete(){
     if(section===0) return Object.keys(answers.sjt).length===SJT.length;
-    if(section===1) return Object.keys(answers.lead).length===14;
+    if(section===1) return Object.keys(answers.lead).length===LEAD_ITEMS.length;
     if(section===2) return Object.keys(answers.motiv).length===MOTIVATION.length;
-    return Object.keys(answers.pers).length===40;
+    return Object.keys(answers.pers).length===PERS_ITEMS.length;
   }
   function missingCount(){
     if(section===0) return SJT.length-Object.keys(answers.sjt).length;
-    if(section===1) return 14-Object.keys(answers.lead).length;
+    if(section===1) return LEAD_ITEMS.length-Object.keys(answers.lead).length;
     if(section===2) return MOTIVATION.length-Object.keys(answers.motiv).length;
-    return 40-Object.keys(answers.pers).length;
+    return PERS_ITEMS.length-Object.keys(answers.pers).length;
   }
+
+  function scored(v, rev){ return rev ? 6-v : v; }
 
   function traitAverages(){
-    const out=[]; let idx=0;
-    PERSONALITY.forEach(([trait,items])=>{
-      let sum=0; let n=0;
-      items.forEach(()=>{ if(answers.pers[idx]){ sum+=answers.pers[idx]; n++; } idx++; });
-      out.push({trait, avg: n? sum/n : 0});
+    const agg = {};
+    PERS_ITEMS.forEach((it,idx)=>{
+      if(!agg[it.t]) agg[it.t]={sum:0,n:0};
+      if(answers.pers[idx]){ agg[it.t].sum += scored(answers.pers[idx], it.rev); agg[it.t].n++; }
     });
-    return out;
+    return Object.keys(agg).map(t=>({trait:t, avg: agg[t].n ? agg[t].sum/agg[t].n : 0}));
   }
 
-  /* ---------- payload ---------- */
-  function buildPayload(timedOut){
+  function buildPeakResult(timedOut){
     let sjtScore=0;
     const sjtDetail=[];
-    SJT.forEach((item,i)=>{
-      const chosen = answers.sjt[i];
-      const ok = chosen===item.c;
-      if(ok) sjtScore++;
-      sjtDetail.push({ q:i+1, driver:item.d, chose: chosen!==undefined?String.fromCharCode(65+chosen):'', best:String.fromCharCode(65+item.c), correct:ok });
-    });
     const driverTally={};
     SJT.forEach((item,i)=>{
+      const chosen = answers.sjt[i];
+      const opt = chosen!==undefined ? item.o[chosen] : null;
+      const w = opt ? opt.w : 0;
+      sjtScore += w;
+      sjtDetail.push({ q:i+1, driver:item.d, signal: opt?opt.g:'', weight:w, max:SJT_MAX_PER_Q });
       if(!driverTally[item.d]) driverTally[item.d]={hit:0,tot:0};
-      driverTally[item.d].tot++;
-      if(answers.sjt[i]===item.c) driverTally[item.d].hit++;
+      driverTally[item.d].tot += SJT_MAX_PER_Q;
+      driverTally[item.d].hit += w;
     });
-    const leadVals = Object.values(answers.lead);
+    const leadVals = LEAD_ITEMS.map((it,idx)=> answers.lead[idx] ? scored(answers.lead[idx], it.rev) : null).filter(v=>v!==null);
     const motivVals = Object.values(answers.motiv);
-    const allVals = [...leadVals, ...motivVals, ...Object.values(answers.pers)];
-    const extremes = allVals.filter(v=>v===1||v===5).length;
-
-    const elapsedMin = startedAt ? Math.round((Date.now()-startedAt)/60000*10)/10 : 0;
+    const rawAll = [...Object.values(answers.lead), ...Object.values(answers.motiv), ...Object.values(answers.pers)];
+    const extremes = rawAll.filter(v=>v===1||v===5).length;
 
     return {
-      candidate,
-      submittedAt: new Date().toISOString(),
-      submittedAtLocal: new Date().toLocaleString(),
-      elapsedMinutes: elapsedMin,
       timedOut: !!timedOut,
+      sjtScore, sjtMax: SJT.length*SJT_MAX_PER_Q,
+      sjtDetail,
+      byDriver: driverTally,
+      leadershipAvg: leadVals.length? Number((leadVals.reduce((a,b)=>a+b,0)/leadVals.length).toFixed(2)) : null,
+      motivationAvg: motivVals.length? Number((motivVals.reduce((a,b)=>a+b,0)/motivVals.length).toFixed(2)) : null,
+      traits: traitAverages().map(t=>({trait:t.trait, avg:Number(t.avg.toFixed(2))})),
+      extremeRatingPct: rawAll.length? Math.round(extremes/rawAll.length*100) : 0,
       completion: countAnswered()+'/'+TOTAL_ITEMS,
-      peak: {
-        sjtScore, sjtMax: SJT.length,
-        sjtDetail,
-        byDriver: driverTally,
-        leadershipAvg: leadVals.length? Number((leadVals.reduce((a,b)=>a+b,0)/leadVals.length).toFixed(2)) : null,
-        motivationAvg: motivVals.length? Number((motivVals.reduce((a,b)=>a+b,0)/motivVals.length).toFixed(2)) : null,
-        traits: traitAverages().map(t=>({trait:t.trait, avg:Number(t.avg.toFixed(2))})),
-        extremeRatingPct: allVals.length? Math.round(extremes/allVals.length*100) : 0,
-        rawAnswers: { sjt:answers.sjt, leadership:answers.lead, motivation:answers.motiv, personality:answers.pers }
-      },
-      cognitive: window.PG_SCORES || {}
+      rawAnswers: { sjt:answers.sjt, leadership:answers.lead, motivation:answers.motiv, personality:answers.pers }
     };
   }
 
-  function payloadToText(pl){
-    let t = '=== P&G ASSESSMENT SUBMISSION ===\n\n';
-    t += 'Name: '+pl.candidate.name+'\n';
-    t += 'ID number: '+pl.candidate.ic+'\n';
-    t += 'Phone: '+pl.candidate.phone+'\n';
-    t += 'Email: '+pl.candidate.email+'\n';
-    if(pl.candidate.role) t += 'Position applied: '+pl.candidate.role+'\n';
-    t += 'Submitted: '+pl.submittedAtLocal+'\n';
-    t += 'Time taken: '+pl.elapsedMinutes+' min'+(pl.timedOut?' (TIMED OUT)':'')+'\n';
-    t += 'Completion: '+pl.completion+'\n\n';
-    t += '--- PEAK ---\n';
-    t += 'SJT score: '+pl.peak.sjtScore+' / '+pl.peak.sjtMax+'\n';
-    Object.keys(pl.peak.byDriver).forEach(d=>{
-      t += '  '+d+': '+pl.peak.byDriver[d].hit+'/'+pl.peak.byDriver[d].tot+'\n';
-    });
-    t += 'Leadership avg: '+pl.peak.leadershipAvg+' / 5\n';
-    t += 'Motivation avg: '+pl.peak.motivationAvg+' / 5\n';
-    t += 'Extreme ratings: '+pl.peak.extremeRatingPct+'%\n';
-    t += 'Traits:\n';
-    pl.peak.traits.forEach(x=>{ t += '  '+x.trait+': '+x.avg+'\n'; });
-    t += '\nSJT per question:\n';
-    pl.peak.sjtDetail.forEach(d=>{
-      t += '  Q'+d.q+' ['+d.driver+'] chose '+d.chose+' / best '+d.best+' '+(d.correct?'OK':'X')+'\n';
-    });
-    const c = pl.cognitive||{};
-    t += '\n--- COGNITIVE CHALLENGES ---\n';
-    t += 'Switch: '+(c.switch? c.switch.correct+'/'+c.switch.total+', level '+c.switch.level : 'not attempted')+'\n';
-    t += 'Digit: '+(c.digit? c.digit.correct+'/'+c.digit.total+', level '+c.digit.level : 'not attempted')+'\n';
-    t += 'Grid: '+(c.grid? c.grid.correct+'/'+c.grid.total+' recall, level '+c.grid.level : 'not attempted')+'\n';
-    t += '\n--- RAW JSON ---\n'+JSON.stringify(pl);
-    return t;
-  }
-
-  function slug(s){ return s.replace(/[^a-zA-Z0-9]+/g,'_').slice(0,40); }
-
-  function downloadFile(pl){
-    const txt = payloadToText(pl);
-    const blob = new Blob([txt], {type:'text/plain'});
-    const url = URL.createObjectURL(blob);
-    const a = document.createElement('a');
-    a.href = url;
-    a.download = 'PG_result_'+slug(pl.candidate.name)+'_'+Date.now()+'.txt';
-    document.body.appendChild(a); a.click(); document.body.removeChild(a);
-    setTimeout(()=>URL.revokeObjectURL(url), 1000);
-  }
-
-  function postToEndpoint(pl){
-    if(!CFG.SUBMIT_ENDPOINT) return Promise.reject('no endpoint');
-    return fetch(CFG.SUBMIT_ENDPOINT, {
-      method:'POST',
-      headers:{'Content-Type':'text/plain;charset=utf-8'},
-      body: JSON.stringify(pl),
-      redirect:'follow'
-    }).then(r=>{ if(!r.ok) throw new Error('bad status '+r.status); return true; });
-  }
-
-  function mailtoLink(pl){
-    const subject = 'P&G Assessment submission — '+pl.candidate.name;
-    const body = payloadToText(pl);
-    return 'mailto:'+encodeURIComponent(CFG.HR_EMAIL)+'?subject='+encodeURIComponent(subject)+'&body='+encodeURIComponent(body.slice(0,1800));
-  }
-
-  function finish(timedOut){
-    if(submitted) return;
-    submitted = true;
-    stopTimer();
-    const pl = buildPayload(timedOut);
-    window.PG_LAST_PAYLOAD = pl;
-
-    document.getElementById('pk-play').style.display='none';
-    document.getElementById('pk-end-card').style.display='block';
-    document.getElementById('pk-status').textContent='Submitted';
-
-    const res = document.getElementById('pk-results');
-    let html = '';
-    if(timedOut){
-      html += '<div class="pk-warn show" style="margin-bottom:14px;">Time expired. Your answers so far have been recorded.</div>';
-    }
-    html += `<p class="desc">Thank you, <b>${pl.candidate.name}</b>. Your responses have been recorded.</p>
-      <p class="desc">Completion: <b>${pl.completion}</b> items · Time taken: <b>${pl.elapsedMinutes} minutes</b></p>`;
-
-    if(CFG.SHOW_SCORE_TO_CANDIDATE){
-      html += '<div class="pk-groupname" style="margin-top:18px;">Your results</div>';
-      html += `<p class="desc">Situational judgment: <b>${pl.peak.sjtScore} of ${pl.peak.sjtMax}</b></p>`;
-      Object.keys(pl.peak.byDriver).forEach(d=>{
-        const t=pl.peak.byDriver[d]; const pct=Math.round(t.hit/t.tot*100);
-        html += `<div class="pk-trait"><div class="nm"><span>${d}</span><span>${t.hit} / ${t.tot}</span></div><div class="pk-bar"><div style="width:${pct}%"></div></div></div>`;
-      });
-      html += '<div class="pk-groupname" style="margin-top:16px;">Personality profile</div>';
-      pl.peak.traits.forEach(t=>{
-        const pct=Math.round(t.avg/5*100);
-        html += `<div class="pk-trait"><div class="nm"><span>${t.trait}</span><span>${t.avg.toFixed(1)} / 5</span></div><div class="pk-bar"><div style="width:${pct}%"></div></div></div>`;
-      });
-    }
-    res.innerHTML = html;
-
-    document.getElementById('pk-review').style.display = CFG.SHOW_SCORE_TO_CANDIDATE ? 'inline-block' : 'none';
-
-    const statusEl = document.getElementById('pk-send-status');
-    const mailBtn = document.getElementById('pk-mail');
-    mailBtn.setAttribute('href', mailtoLink(pl));
-
-    if(CFG.SUBMIT_ENDPOINT){
-      statusEl.textContent = 'Sending your responses…';
-      statusEl.className = 'pk-sendstatus show';
-      postToEndpoint(pl).then(()=>{
-        statusEl.textContent = 'Sent successfully. You may close this page.';
-        statusEl.className = 'pk-sendstatus show good';
-      }).catch(()=>{
-        statusEl.innerHTML = 'Automatic sending failed. Please use one of the buttons below to send your responses to '+CFG.HR_EMAIL+'.';
-        statusEl.className = 'pk-sendstatus show bad';
-        downloadFile(pl);
-      });
-    } else {
-      statusEl.innerHTML = 'Your result file has been downloaded. Please email it to <b>'+CFG.HR_EMAIL+'</b>, or use the buttons below.';
-      statusEl.className = 'pk-sendstatus show';
-      downloadFile(pl);
-    }
-  }
-
-  function renderReview(){
-    const box = document.getElementById('pk-review-body');
-    let html = '';
-    SJT.forEach((item,i)=>{
-      const chosen = answers.sjt[i];
-      const ok = chosen===item.c;
-      html += `<div class="pk-item"><div class="pk-driver">${item.d}</div>
-        <div class="pk-q">${i+1}. ${item.s}</div>`;
-      item.o.forEach((opt,oi)=>{
-        let cls='pk-opt';
-        if(oi===item.c) cls+=' sel';
-        html += `<div class="${cls}" style="cursor:default;">${String.fromCharCode(65+oi)}. ${opt}</div>`;
-      });
-      html += `<div class="feedback show ${ok?'good':'bad'}" style="margin-top:8px;">
-        ${ok?'You selected the best-fit response.':'You chose '+(chosen!==undefined?String.fromCharCode(65+chosen):'nothing')+'. Best fit was '+String.fromCharCode(65+item.c)+'.'}
-        <br><b>Why:</b> ${item.r[item.c]}</div></div>`;
-    });
-    box.innerHTML = html;
+  function completePart1(timedOut){
+    if(peakDone) return;
+    peakDone = true;
+    clearInterval(timerId);
+    FLOW.peakResult = buildPeakResult(timedOut);
+    FLOW.setProgress('Part 2');
+    FLOW.goTo(2);
   }
 
   document.getElementById('pk-start').addEventListener('click', ()=>{
-    section=0; submitted=false;
-    startedAt = Date.now();
+    section=0;
+    FLOW.assessmentStartedAt = Date.now();
     document.getElementById('pk-start-card').style.display='none';
-    document.getElementById('pk-end-card').style.display='none';
     document.getElementById('pk-play').style.display='block';
-    document.getElementById('pk-status').textContent='In progress';
     startTimer();
     renderSection();
   });
@@ -1055,7 +741,7 @@ function renderLadder(elId, level, max){
       return;
     }
     warn.classList.remove('show');
-    if(section===3){ finish(false); return; }
+    if(section===3){ completePart1(false); return; }
     section++;
     renderSection();
   });
@@ -1064,54 +750,24 @@ function renderLadder(elId, level, max){
     if(section>0){ section--; renderSection(); }
   });
 
-  document.getElementById('pk-download').addEventListener('click', ()=>{
-    if(window.PG_LAST_PAYLOAD) downloadFile(window.PG_LAST_PAYLOAD);
-  });
-
-  document.getElementById('pk-copy').addEventListener('click', ()=>{
-    if(!window.PG_LAST_PAYLOAD) return;
-    const txt = payloadToText(window.PG_LAST_PAYLOAD);
-    const btn = document.getElementById('pk-copy');
-    const done = ()=>{ btn.textContent='Copied'; setTimeout(()=>{ btn.textContent='Copy responses'; },2000); };
-    if(navigator.clipboard && navigator.clipboard.writeText){
-      navigator.clipboard.writeText(txt).then(done).catch(()=>{ fallbackCopy(txt); done(); });
-    } else { fallbackCopy(txt); done(); }
-  });
-  function fallbackCopy(txt){
-    const ta=document.createElement('textarea');
-    ta.value=txt; document.body.appendChild(ta); ta.select();
-    try{ document.execCommand('copy'); }catch(e){}
-    document.body.removeChild(ta);
-  }
-
-  document.getElementById('pk-review').addEventListener('click', ()=>{
-    const box = document.getElementById('pk-review-body');
-    const open = box.style.display!=='none';
-    if(open){ box.style.display='none'; document.getElementById('pk-review').textContent='Review SJT answers'; }
-    else { renderReview(); box.style.display='block'; document.getElementById('pk-review').textContent='Hide SJT review'; }
-  });
-
-  window.addEventListener('beforeunload', (e)=>{
-    if(startedAt && !submitted){ e.preventDefault(); e.returnValue=''; }
-  });
-
   updateStats();
 })();
 
 /* ============================================================
-   SWITCH CHALLENGE
+   PART 2 — SWITCH
    ============================================================ */
 (function(){
+  const CFG = window.PG_CONFIG;
   const SHAPES = ['circle','square','triangle','diamond'];
   const COLORS = [{n:'teal',h:'#1F8A70'},{n:'coral',h:'#D6524B'},{n:'amber',h:'#E2A32D'},{n:'navy',h:'#132038'}];
   const SIZES = [{n:'small', px:22},{n:'large', px:34}];
 
   const OPS = [
-    { key:'reverse', label:'Reverse — the order is flipped end-to-end', apply:(r)=>r.slice().reverse() },
-    { key:'rotate', label:'Rotate — every symbol shifts one position, wrapping around', apply:(r)=>[r[r.length-1], ...r.slice(0,r.length-1)] },
-    { key:'swapends', label:'Swap ends — only the first and last symbols trade places', apply:(r)=>{ const c=r.slice(); const t=c[0]; c[0]=c[c.length-1]; c[c.length-1]=t; return c; } },
-    { key:'mirrormid', label:'Mirror pair — the two middle symbols swap', apply:(r)=>{ const c=r.slice(); const a=Math.floor(c.length/2)-1, b=Math.floor(c.length/2); [c[a],c[b]]=[c[b],c[a]]; return c; } },
-    { key:'sortsize', label:'Sort by size — smallest to largest, left to right', apply:(r)=>r.slice().sort((a,b)=>a.size.px-b.size.px) },
+    { key:'reverse', label:'The order is flipped end-to-end', apply:(r)=>r.slice().reverse() },
+    { key:'rotate', label:'Every symbol shifts one position, wrapping around', apply:(r)=>[r[r.length-1], ...r.slice(0,r.length-1)] },
+    { key:'swapends', label:'Only the first and last symbols trade places', apply:(r)=>{ const c=r.slice(); const t=c[0]; c[0]=c[c.length-1]; c[c.length-1]=t; return c; } },
+    { key:'mirrormid', label:'The two middle symbols swap', apply:(r)=>{ const c=r.slice(); const a=Math.floor(c.length/2)-1, b=Math.floor(c.length/2); [c[a],c[b]]=[c[b],c[a]]; return c; } },
+    { key:'sortsize', label:'Symbols are reordered from smallest to largest', apply:(r)=>r.slice().sort((a,b)=>a.size.px-b.size.px) },
   ];
 
   function randSymbol(){ return { shape: pick(SHAPES), color: pick(COLORS), size: pick(SIZES) }; }
@@ -1128,7 +784,7 @@ function renderLadder(elId, level, max){
     return box;
   }
 
-  let state = { active:false, timeLeft:360, correct:0, total:0, streak:0, level:1, maxLevel:6, timerId:null, current:null };
+  let state = null;
 
   function symbolCount(level){ return level<=2?4 : level<=4?5 : 6; }
   function chainedOps(level){ return level>=5; }
@@ -1145,7 +801,7 @@ function renderLadder(elId, level, max){
       row2 = op2.apply(row2);
       opsUsed.push(op2);
     }
-    const correctLabel = opsUsed.map(o=>o.label).join(' → then → ');
+    const correctLabel = opsUsed.map(o=>o.label).join(', then ');
     let distractors = shuffle(OPS.filter(o=>!opsUsed.includes(o))).slice(0,3).map(o=>o.label);
     const choices = shuffle([correctLabel, ...distractors]);
     state.current = { row1, row2, correctLabel, choices };
@@ -1158,7 +814,6 @@ function renderLadder(elId, level, max){
     state.current.row1.forEach(s=>r1.appendChild(drawSymbol(s)));
     state.current.row2.forEach(s=>r2.appendChild(drawSymbol(s)));
     const cWrap = document.getElementById('sw-choices'); cWrap.innerHTML='';
-    document.getElementById('sw-feedback').classList.remove('show');
     state.current.choices.forEach(label=>{
       const d = document.createElement('div'); d.className='choice'; d.textContent=label;
       d.addEventListener('click', ()=>answer(label, d));
@@ -1169,37 +824,25 @@ function renderLadder(elId, level, max){
   function answer(label, el){
     if(!state.active) return;
     document.querySelectorAll('#sw-choices .choice').forEach(c=>c.classList.add('disabled'));
+    el.classList.add('picked');
     const isCorrect = label === state.current.correctLabel;
     state.total++;
     if(isCorrect){
       state.correct++; state.streak++;
       if(state.streak>=2 && state.level<state.maxLevel){ state.level++; state.streak=0; }
-      el.classList.add('correct');
     } else {
       state.streak=0;
       if(state.level>1) state.level--;
-      el.classList.add('incorrect');
-      document.querySelectorAll('#sw-choices .choice').forEach(c=>{ if(c.textContent===state.current.correctLabel) c.classList.add('correct'); });
     }
-    const fb = document.getElementById('sw-feedback');
-    fb.className = 'feedback show ' + (isCorrect?'good':'bad');
-    fb.textContent = isCorrect ? 'Correct — that is exactly the rule applied.' : ('Not quite. The actual rule was: ' + state.current.correctLabel);
-    updateStats();
-    setTimeout(()=>{ if(state.active) newQuestion(); }, 900);
-  }
-
-  function updateStats(){
-    document.getElementById('sw-score').textContent = state.correct+' / '+state.total;
-    document.getElementById('sw-streak').textContent = state.streak;
-    document.getElementById('sw-level').textContent = state.level+' / '+state.maxLevel;
-    renderLadder('sw-ladder', state.level, state.maxLevel);
+    FLOW.setProgress('Part 2 · Question '+(state.total+1));
+    setTimeout(()=>{ if(state.active) newQuestion(); }, 400);
   }
 
   function tick(){
     state.timeLeft--;
-    document.getElementById('sw-time').textContent = fmtTime(Math.max(0,state.timeLeft));
+    FLOW.setTime(fmtTime(Math.max(0,state.timeLeft)));
     const bar = document.getElementById('sw-timerbar');
-    const pct = Math.max(0,state.timeLeft)/360*100;
+    const pct = Math.max(0,state.timeLeft)/CFG.PART2_TIME_LIMIT_SEC*100;
     bar.style.width = pct+'%';
     bar.className = 'timerbar' + (state.timeLeft<60?' danger':state.timeLeft<150?' warn':'');
     if(state.timeLeft<=0){ endSession(); }
@@ -1210,34 +853,192 @@ function renderLadder(elId, level, max){
     document.getElementById('sw-play-card').style.display='none';
     document.getElementById('sw-end-card').style.display='block';
     const acc = state.total? Math.round(state.correct/state.total*100):0;
-    document.getElementById('sw-summary').textContent = `${state.correct} correct out of ${state.total} attempted (${acc}% accuracy). You reached level ${state.level} of ${state.maxLevel}.`;
     window.PG_SCORES.switch = {correct:state.correct,total:state.total,level:state.level,accuracy:acc};
+    FLOW.setTime('—');
   }
 
   document.getElementById('sw-start').addEventListener('click', ()=>{
-    state = { active:true, timeLeft:360, correct:0, total:0, streak:0, level:1, maxLevel:6, timerId:null, current:null };
+    state = { active:true, timeLeft:CFG.PART2_TIME_LIMIT_SEC, correct:0, total:0, streak:0, level:1, maxLevel:6, timerId:null, current:null };
     document.getElementById('sw-start-card').style.display='none';
-    document.getElementById('sw-end-card').style.display='none';
     document.getElementById('sw-play-card').style.display='block';
-    updateStats();
+    FLOW.setProgress('Part 2 · Question 1');
     newQuestion();
     state.timerId = setInterval(tick, 1000);
   });
-  document.getElementById('sw-restart').addEventListener('click', ()=>{
-    document.getElementById('sw-end-card').style.display='none';
-    document.getElementById('sw-start-card').style.display='block';
+
+  document.getElementById('sw-continue').addEventListener('click', ()=>{
+    FLOW.setProgress('Part 3');
+    FLOW.goTo(3);
   });
-  renderLadder('sw-ladder',1,6);
 })();
 
 /* ============================================================
-   DIGIT CHALLENGE
+   PART 3 — GRID
    ============================================================ */
 (function(){
-  let state = { active:false, timeLeft:360, correct:0, total:0, streak:0, level:1, maxLevel:5, timerId:null, qTimerId:null, qTimeLeft:8, current:null };
+  const CFG = window.PG_CONFIG;
+  let state = null;
+
+  function levelParams(level){
+    if(level===1) return { size:4, dots:4, memMs:2500 };
+    if(level===2) return { size:5, dots:6, memMs:3000 };
+    return { size:6, dots:8, memMs:3500 };
+  }
+
+  function buildBoard(size){
+    const board = document.getElementById('gr-board');
+    board.innerHTML='';
+    board.style.gridTemplateColumns = `repeat(${size}, 52px)`;
+    const cells = [];
+    for(let i=0;i<size*size;i++){
+      const b = document.createElement('div'); b.className='cellbtn'; b.dataset.idx=i;
+      cells.push(b); board.appendChild(b);
+    }
+    return cells;
+  }
+
+  function sessionTick(){
+    state.timeLeft--;
+    FLOW.setTime(fmtTime(Math.max(0,state.timeLeft)));
+    const bar = document.getElementById('gr-timerbar');
+    bar.style.width = Math.max(0,state.timeLeft)/CFG.PART3_TIME_LIMIT_SEC*100+'%';
+    bar.className = 'timerbar' + (state.timeLeft<60?' danger':state.timeLeft<150?' warn':'');
+    if(state.timeLeft<=0){ endSession(); }
+  }
+
+  function startRound(){
+    if(!state.active) return;
+    state.round++;
+    const params = levelParams(state.level);
+    document.getElementById('gr-dchoices').style.display='none';
+    document.getElementById('gr-submit').style.display='none';
+    document.getElementById('gr-phaselabel').textContent = 'Memorise';
+    document.getElementById('gr-phasesub').textContent = 'Study the highlighted cells';
+    FLOW.setProgress('Part 3 · Round '+state.round);
+
+    const total = params.size*params.size;
+    const idxs = shuffle([...Array(total).keys()]).slice(0, params.dots);
+    state.lit = idxs; state.picked = []; state.gridSize = params.size;
+
+    const cells = buildBoard(params.size);
+    idxs.forEach(i=>cells[i].classList.add('lit'));
+    cells.forEach(c=>c.classList.add('locked'));
+
+    const bar = document.getElementById('gr-phasebar');
+    bar.style.width='100%';
+    const start = Date.now();
+    const iv = setInterval(()=>{
+      if(!state.active){ clearInterval(iv); return; }
+      const elapsed = Date.now()-start;
+      const pct = Math.max(0, 1-elapsed/params.memMs)*100;
+      bar.style.width = pct+'%';
+      if(elapsed>=params.memMs){ clearInterval(iv); distractorPhase(); }
+    }, 50);
+  }
+
+  const SHAPE_SVGS = () => {
+    const symmetric = Math.random()<0.5;
+    let path;
+    if(symmetric){
+      path = `<polygon points="30,6 54,54 6,54" fill="#1F8A70"/>`;
+    } else {
+      path = `<polygon points="10,8 54,20 40,54 6,40" fill="#D6524B"/>`;
+    }
+    return { html:`<svg width="60" height="60" viewBox="0 0 60 60">${path}</svg>`, isSymmetric: symmetric };
+  };
+
+  function distractorPhase(){
+    if(!state.active) return;
+    document.getElementById('gr-phaselabel').textContent = 'Quick question';
+    document.getElementById('gr-phasesub').textContent = 'Is this shape vertically symmetrical?';
+    document.getElementById('gr-phasebar').style.width='0%';
+    const dObj = SHAPE_SVGS();
+    const wrap = document.getElementById('gr-board');
+    wrap.style.gridTemplateColumns = '1fr';
+    wrap.innerHTML = `<div style="display:flex;justify-content:center;padding:10px 0;">${dObj.html}</div>`;
+    const cWrap = document.getElementById('gr-dchoices');
+    cWrap.style.display='grid'; cWrap.innerHTML='';
+    ['Yes — symmetrical','No — not symmetrical'].forEach((label,i)=>{
+      const d = document.createElement('div'); d.className='choice'; d.textContent=label;
+      d.addEventListener('click', ()=>{
+        document.querySelectorAll('#gr-dchoices .choice').forEach(c=>c.classList.add('disabled'));
+        d.classList.add('picked');
+        const said = i===0;
+        state.dtotal++;
+        if(said===dObj.isSymmetric){ state.dcorrect++; }
+        setTimeout(recallPhase, 300);
+      });
+      cWrap.appendChild(d);
+    });
+  }
+
+  function recallPhase(){
+    if(!state.active) return;
+    document.getElementById('gr-phaselabel').textContent = 'Recall';
+    document.getElementById('gr-phasesub').textContent = `Select the ${state.lit.length} cells that were highlighted`;
+    document.getElementById('gr-dchoices').style.display='none';
+    const cells = buildBoard(state.gridSize);
+    cells.forEach(c=>{
+      c.addEventListener('click', ()=>{
+        const i = Number(c.dataset.idx);
+        if(state.picked.includes(i)){ state.picked = state.picked.filter(x=>x!==i); c.classList.remove('picked'); }
+        else { state.picked.push(i); c.classList.add('picked'); }
+      });
+    });
+    document.getElementById('gr-submit').style.display='inline-block';
+  }
+
+  function submitRecall(){
+    if(!state.active) return;
+    const cells = document.querySelectorAll('#gr-board .cellbtn');
+    cells.forEach(c=>c.classList.add('locked'));
+    let hits=0;
+    state.lit.forEach(i=>{ if(state.picked.includes(i)) hits++; });
+    const falsePositives = state.picked.filter(i=>!state.lit.includes(i)).length;
+    const perfect = hits===state.lit.length && falsePositives===0;
+    state.total += state.lit.length;
+    state.correct += hits;
+    window.PG_SCORES.grid = {correct:state.correct,total:state.total,level:state.level,rounds:state.round,distractor:state.dcorrect+'/'+state.dtotal};
+
+    if(perfect && state.level<state.maxLevel) state.level++;
+    else if(!perfect && falsePositives>0 && state.level>1) state.level--;
+
+    document.getElementById('gr-submit').style.display='none';
+    setTimeout(()=>{ if(state.active) startRound(); }, 500);
+  }
+
+  function endSession(){
+    state.active=false; clearInterval(state.timerId);
+    window.PG_SCORES.grid = window.PG_SCORES.grid || {correct:0,total:0,level:1,rounds:0,distractor:'0/0'};
+    document.getElementById('gr-play-card').style.display='none';
+    document.getElementById('gr-end-card').style.display='block';
+    FLOW.setTime('—');
+  }
+
+  document.getElementById('gr-start').addEventListener('click', ()=>{
+    state = { active:true, timeLeft:CFG.PART3_TIME_LIMIT_SEC, round:0, correct:0, total:0, dcorrect:0, dtotal:0, level:1, maxLevel:3, lit:[], picked:[], gridSize:4, timerId:null };
+    document.getElementById('gr-start-card').style.display='none';
+    document.getElementById('gr-play-card').style.display='block';
+    state.timerId = setInterval(sessionTick, 1000);
+    FLOW.setTime(fmtTime(state.timeLeft));
+    startRound();
+  });
+  document.getElementById('gr-submit').addEventListener('click', submitRecall);
+  document.getElementById('gr-continue').addEventListener('click', ()=>{
+    FLOW.setProgress('Part 4');
+    FLOW.goTo(4);
+  });
+})();
+
+/* ============================================================
+   PART 4 — DIGIT + FINAL SUBMISSION
+   ============================================================ */
+(function(){
+  const CFG = window.PG_CONFIG;
+  let state = null;
 
   function genEquation(level){
-    let a,b,op,result,text,answer;
+    let a,b,op,result,answer;
     const ops = level<=2 ? ['+','-'] : level<=4 ? ['+','-','×'] : ['+','-','×','÷'];
     op = pick(ops);
     const big = level>=3;
@@ -1262,21 +1063,19 @@ function renderLadder(elId, level, max){
     let parts = { a:String(a), b:String(b), result:String(result) };
     answer = parts[blankWhich];
     parts[blankWhich] = '__BLANK__';
-    text = `${parts.a} ${op} ${parts.b} = ${parts.result}`;
-    return { text, answer, op };
+    return { text:`${parts.a} ${op} ${parts.b} = ${parts.result}`, answer };
   }
 
   function newQuestion(){
     const eq = genEquation(state.level);
     state.current = eq;
-    const html = eq.text.replace('__BLANK__', '<span class="blank">?</span>');
-    document.getElementById('dg-equation').innerHTML = html;
+    document.getElementById('dg-equation').innerHTML = eq.text.replace('__BLANK__', '<span class="blank">?</span>');
     document.getElementById('dg-input').value='';
     document.getElementById('dg-input').focus();
-    document.getElementById('dg-feedback').classList.remove('show');
     state.qTimeLeft = 8;
     clearInterval(state.qTimerId);
     state.qTimerId = setInterval(qtick, 100);
+    FLOW.setProgress('Part 4 · Question '+(state.total+1));
   }
 
   function qtick(){
@@ -1292,215 +1091,181 @@ function renderLadder(elId, level, max){
     const val = document.getElementById('dg-input').value.trim();
     const isCorrect = !timedOut && val !== '' && val === state.current.answer;
     state.total++;
-    const fb = document.getElementById('dg-feedback');
     if(isCorrect){
       state.correct++; state.streak++;
       if(state.streak>=3 && state.level<state.maxLevel){ state.level++; state.streak=0; }
-      fb.className='feedback show good'; fb.textContent='Correct.';
     } else {
       state.streak=0;
       if(state.level>1) state.level--;
-      fb.className='feedback show bad';
-      fb.textContent = timedOut ? ('Time is up — the answer was '+state.current.answer+'.') : ('Not quite — the answer was '+state.current.answer+'.');
     }
-    updateStats();
-    setTimeout(()=>{ if(state.active) newQuestion(); }, 700);
-  }
-
-  function updateStats(){
-    document.getElementById('dg-score').textContent = state.correct+' / '+state.total;
-    document.getElementById('dg-streak').textContent = state.streak;
-    document.getElementById('dg-level').textContent = state.level+' / '+state.maxLevel;
-    renderLadder('dg-ladder', state.level, state.maxLevel);
+    setTimeout(()=>{ if(state.active) newQuestion(); }, 300);
   }
 
   function tick(){
     state.timeLeft--;
-    document.getElementById('dg-time').textContent = fmtTime(Math.max(0,state.timeLeft));
+    FLOW.setTime(fmtTime(Math.max(0,state.timeLeft)));
     const bar = document.getElementById('dg-timerbar');
-    const pct = Math.max(0,state.timeLeft)/360*100;
-    bar.style.width = pct+'%';
+    bar.style.width = Math.max(0,state.timeLeft)/CFG.PART4_TIME_LIMIT_SEC*100+'%';
     bar.className = 'timerbar' + (state.timeLeft<60?' danger':state.timeLeft<150?' warn':'');
     if(state.timeLeft<=0){ endSession(); }
   }
 
   function endSession(){
     state.active=false; clearInterval(state.timerId); clearInterval(state.qTimerId);
-    document.getElementById('dg-play-card').style.display='none';
-    document.getElementById('dg-end-card').style.display='block';
     const acc = state.total? Math.round(state.correct/state.total*100):0;
-    document.getElementById('dg-summary').textContent = `${state.correct} correct out of ${state.total} attempted (${acc}% accuracy). You reached level ${state.level} of ${state.maxLevel}.`;
     window.PG_SCORES.digit = {correct:state.correct,total:state.total,level:state.level,accuracy:acc};
+    document.getElementById('dg-play-card').style.display='none';
+    finalizeAssessment();
   }
 
   document.getElementById('dg-start').addEventListener('click', ()=>{
-    state = { active:true, timeLeft:360, correct:0, total:0, streak:0, level:1, maxLevel:5, timerId:null, qTimerId:null, qTimeLeft:8, current:null };
+    state = { active:true, timeLeft:CFG.PART4_TIME_LIMIT_SEC, correct:0, total:0, streak:0, level:1, maxLevel:5, timerId:null, qTimerId:null, qTimeLeft:8, current:null };
     document.getElementById('dg-start-card').style.display='none';
-    document.getElementById('dg-end-card').style.display='none';
     document.getElementById('dg-play-card').style.display='block';
-    updateStats();
     newQuestion();
     state.timerId = setInterval(tick, 1000);
   });
-  document.getElementById('dg-restart').addEventListener('click', ()=>{
-    document.getElementById('dg-end-card').style.display='none';
-    document.getElementById('dg-start-card').style.display='block';
-  });
   document.getElementById('dg-submit').addEventListener('click', ()=>submitAnswer(false));
   document.getElementById('dg-input').addEventListener('keydown', (e)=>{ if(e.key==='Enter') submitAnswer(false); });
-  renderLadder('dg-ladder',1,5);
-})();
 
-/* ============================================================
-   GRID CHALLENGE
-   ============================================================ */
-(function(){
-  let state = { active:false, round:0, correct:0, total:0, dcorrect:0, dtotal:0, level:1, maxLevel:3, lit:[], picked:[], gridSize:4, dotCount:4, phase:'idle' };
-
-  function levelParams(level){
-    if(level===1) return { size:4, dots:4, memMs:2500 };
-    if(level===2) return { size:5, dots:6, memMs:3000 };
-    return { size:6, dots:8, memMs:3500 };
+  /* ---------- final submission ---------- */
+  function buildPayload(){
+    const pk = FLOW.peakResult || {};
+    const elapsedMin = FLOW.assessmentStartedAt ? Math.round((Date.now()-FLOW.assessmentStartedAt)/60000*10)/10 : 0;
+    return {
+      candidate: FLOW.candidate,
+      submittedAt: new Date().toISOString(),
+      submittedAtLocal: new Date().toLocaleString(),
+      elapsedMinutes: elapsedMin,
+      timedOut: !!pk.timedOut,
+      completion: pk.completion || '0/0',
+      peak: {
+        sjtScore: pk.sjtScore||0, sjtMax: pk.sjtMax||0,
+        sjtDetail: pk.sjtDetail||[],
+        byDriver: pk.byDriver||{},
+        leadershipAvg: pk.leadershipAvg,
+        motivationAvg: pk.motivationAvg,
+        traits: pk.traits||[],
+        extremeRatingPct: pk.extremeRatingPct||0,
+        rawAnswers: pk.rawAnswers||{}
+      },
+      cognitive: window.PG_SCORES || {}
+    };
   }
 
-  function buildBoard(size, mode){
-    const board = document.getElementById('gr-board');
-    board.innerHTML='';
-    board.style.gridTemplateColumns = `repeat(${size}, 52px)`;
-    const cells = [];
-    for(let i=0;i<size*size;i++){
-      const b = document.createElement('div'); b.className='cellbtn'; b.dataset.idx=i;
-      cells.push(b); board.appendChild(b);
-    }
-    return cells;
+  function payloadToText(pl){
+    let t = '=== CANDIDATE ASSESSMENT SUBMISSION ===\n\n';
+    t += 'Name: '+pl.candidate.name+'\n';
+    t += 'ID number: '+pl.candidate.ic+'\n';
+    t += 'Phone: '+pl.candidate.phone+'\n';
+    t += 'Email: '+pl.candidate.email+'\n';
+    if(pl.candidate.role) t += 'Position applied: '+pl.candidate.role+'\n';
+    t += 'Submitted: '+pl.submittedAtLocal+'\n';
+    t += 'Time taken: '+pl.elapsedMinutes+' min'+(pl.timedOut?' (Part 1 timed out)':'')+'\n';
+    t += 'Completion (Part 1): '+pl.completion+'\n\n';
+    t += '--- PART 1 ---\n';
+    t += 'Situational score: '+pl.peak.sjtScore+' / '+pl.peak.sjtMax+'\n';
+    Object.keys(pl.peak.byDriver).forEach(d=>{
+      t += '  '+d+': '+pl.peak.byDriver[d].hit+'/'+pl.peak.byDriver[d].tot+'\n';
+    });
+    t += 'Leadership avg: '+pl.peak.leadershipAvg+' / 5\n';
+    t += 'Motivation avg: '+pl.peak.motivationAvg+' / 5\n';
+    t += 'Extreme ratings: '+pl.peak.extremeRatingPct+'%\n';
+    t += 'Traits:\n';
+    pl.peak.traits.forEach(x=>{ t += '  '+x.trait+': '+x.avg+'\n'; });
+    t += '\nSituational responses:\n';
+    pl.peak.sjtDetail.forEach(d=>{
+      t += '  Q'+d.q+' ['+d.driver+'] '+d.signal+' ('+d.weight+'/'+d.max+')\n';
+    });
+    const c = pl.cognitive||{};
+    t += '\n--- PARTS 2-4 ---\n';
+    t += 'Part 2: '+(c.switch? c.switch.correct+'/'+c.switch.total+', level '+c.switch.level : 'not attempted')+'\n';
+    t += 'Part 4: '+(c.digit? c.digit.correct+'/'+c.digit.total+', level '+c.digit.level : 'not attempted')+'\n';
+    t += 'Part 3: '+(c.grid? c.grid.correct+'/'+c.grid.total+' recall, level '+c.grid.level : 'not attempted')+'\n';
+    t += '\n--- RAW JSON ---\n'+JSON.stringify(pl);
+    return t;
   }
 
-  function startRound(){
-    state.round++;
-    const params = levelParams(state.level);
-    document.getElementById('gr-round').textContent = state.round;
-    document.getElementById('gr-dchoices').style.display='none';
-    document.getElementById('gr-submit').style.display='none';
-    document.getElementById('gr-feedback').classList.remove('show');
-    document.getElementById('gr-phaselabel').textContent = 'Memorize';
-    document.getElementById('gr-phasesub').textContent = `Study the highlighted cells — ${Math.round(params.memMs/1000)}s`;
-
-    const total = params.size*params.size;
-    const idxs = shuffle([...Array(total).keys()]).slice(0, params.dots);
-    state.lit = idxs; state.picked = []; state.gridSize = params.size;
-
-    const cells = buildBoard(params.size, 'memorize');
-    idxs.forEach(i=>cells[i].classList.add('lit'));
-    cells.forEach(c=>c.classList.add('locked'));
-
-    const bar = document.getElementById('gr-timerbar');
-    bar.style.width='100%'; bar.className='timerbar';
-    const start = Date.now();
-    const iv = setInterval(()=>{
-      const elapsed = Date.now()-start;
-      const pct = Math.max(0, 1-elapsed/params.memMs)*100;
-      bar.style.width = pct+'%';
-      if(elapsed>=params.memMs){ clearInterval(iv); distractorPhase(); }
-    }, 50);
+  function slug(s){ return s.replace(/[^a-zA-Z0-9]+/g,'_').slice(0,40); }
+  function downloadFile(pl){
+    const txt = payloadToText(pl);
+    const blob = new Blob([txt], {type:'text/plain'});
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement('a');
+    a.href = url;
+    a.download = 'Assessment_'+slug(pl.candidate.name)+'_'+Date.now()+'.txt';
+    document.body.appendChild(a); a.click(); document.body.removeChild(a);
+    setTimeout(()=>URL.revokeObjectURL(url), 1000);
+  }
+  function fallbackCopy(txt){
+    const ta=document.createElement('textarea');
+    ta.value=txt; document.body.appendChild(ta); ta.select();
+    try{ document.execCommand('copy'); }catch(e){}
+    document.body.removeChild(ta);
+  }
+  function mailtoLink(pl){
+    const subject = 'Assessment submission — '+pl.candidate.name;
+    const body = payloadToText(pl);
+    return 'mailto:'+encodeURIComponent(CFG.HR_EMAIL)+'?subject='+encodeURIComponent(subject)+'&body='+encodeURIComponent(body.slice(0,1800));
+  }
+  function postToEndpoint(pl){
+    if(!CFG.SUBMIT_ENDPOINT) return Promise.reject('no endpoint');
+    return fetch(CFG.SUBMIT_ENDPOINT, {
+      method:'POST',
+      headers:{'Content-Type':'text/plain;charset=utf-8'},
+      body: JSON.stringify(pl),
+      redirect:'follow'
+    }).then(r=>{ if(!r.ok) throw new Error('bad status '+r.status); return true; });
   }
 
-  const SHAPE_SVGS = () => {
-    const symmetric = Math.random()<0.5;
-    let path;
-    if(symmetric){
-      path = `<polygon points="30,6 54,54 6,54" fill="#1F8A70"/>`;
+  function finalizeAssessment(){
+    FLOW.finished = true;
+    const pl = buildPayload();
+    window.PG_LAST_PAYLOAD = pl;
+    FLOW.setProgress('Complete');
+    FLOW.setTime('—');
+    document.getElementById('step-4').classList.add('done');
+
+    document.getElementById('final-card').style.display='block';
+    document.getElementById('final-results').innerHTML =
+      `<p class="desc">Thank you, <b>${pl.candidate.name}</b>. All four parts are complete.</p>`;
+
+    const statusEl = document.getElementById('final-send-status');
+    const fallback = document.getElementById('final-fallback');
+    document.getElementById('final-mail').setAttribute('href', mailtoLink(pl));
+
+    if(CFG.SUBMIT_ENDPOINT){
+      statusEl.textContent = 'Submitting your responses…';
+      statusEl.className = 'pk-sendstatus show';
+      postToEndpoint(pl).then(()=>{
+        statusEl.textContent = 'Your responses have been submitted successfully. You may now close this page. Our team will be in touch regarding the next steps.';
+        statusEl.className = 'pk-sendstatus show good';
+      }).catch(()=>{
+        statusEl.innerHTML = 'Automatic submission was unsuccessful. Please use one of the buttons below to send your responses to <b>'+CFG.HR_EMAIL+'</b>.';
+        statusEl.className = 'pk-sendstatus show bad';
+        fallback.style.display='flex';
+        downloadFile(pl);
+      });
     } else {
-      path = `<polygon points="10,8 54,20 40,54 6,40" fill="#D6524B"/>`;
+      statusEl.innerHTML = 'Your result file has been downloaded. Please email it to <b>'+CFG.HR_EMAIL+'</b>, or use the buttons below.';
+      statusEl.className = 'pk-sendstatus show';
+      fallback.style.display='flex';
+      downloadFile(pl);
     }
-    return { html:`<svg width="60" height="60" viewBox="0 0 60 60">${path}</svg>`, isSymmetric: symmetric };
-  };
-
-  function distractorPhase(){
-    document.getElementById('gr-phaselabel').textContent = 'Interference puzzle';
-    document.getElementById('gr-phasesub').textContent = 'Is this shape vertically symmetrical?';
-    document.getElementById('gr-board').innerHTML='';
-    document.getElementById('gr-timerbar').style.width='0%';
-    const dObj = SHAPE_SVGS();
-    const wrap = document.getElementById('gr-board');
-    wrap.style.gridTemplateColumns = '1fr';
-    wrap.innerHTML = `<div style="display:flex;justify-content:center;padding:10px 0;">${dObj.html}</div>`;
-    const cWrap = document.getElementById('gr-dchoices');
-    cWrap.style.display='grid'; cWrap.innerHTML='';
-    ['Yes — symmetrical','No — not symmetrical'].forEach((label,i)=>{
-      const d = document.createElement('div'); d.className='choice'; d.textContent=label;
-      d.addEventListener('click', ()=>{
-        document.querySelectorAll('#gr-dchoices .choice').forEach(c=>c.classList.add('disabled'));
-        const said = i===0;
-        state.dtotal++;
-        if(said===dObj.isSymmetric){ state.dcorrect++; d.classList.add('correct'); }
-        else { d.classList.add('incorrect'); }
-        document.getElementById('gr-dscore').textContent = state.dcorrect+' / '+state.dtotal;
-        setTimeout(recallPhase, 500);
-      });
-      cWrap.appendChild(d);
-    });
   }
 
-  function recallPhase(){
-    document.getElementById('gr-phaselabel').textContent = 'Recall';
-    document.getElementById('gr-phasesub').textContent = `Click the ${state.lit.length} cells that were highlighted`;
-    document.getElementById('gr-dchoices').style.display='none';
-    document.getElementById('gr-timerbar').style.width='0%';
-    const cells = buildBoard(state.gridSize, 'recall');
-    cells.forEach(c=>{
-      c.addEventListener('click', ()=>{
-        const i = Number(c.dataset.idx);
-        if(state.picked.includes(i)){ state.picked = state.picked.filter(x=>x!==i); c.classList.remove('picked'); }
-        else { state.picked.push(i); c.classList.add('picked'); }
-      });
-    });
-    document.getElementById('gr-submit').style.display='inline-block';
-  }
-
-  function submitRecall(){
-    const cells = document.querySelectorAll('#gr-board .cellbtn');
-    cells.forEach(c=>c.classList.add('locked'));
-    let hits=0;
-    state.lit.forEach(i=>{
-      const c = cells[i];
-      if(state.picked.includes(i)){ c.classList.remove('picked'); c.classList.add('correct'); hits++; }
-      else { c.classList.add('missed'); }
-    });
-    state.picked.forEach(i=>{
-      if(!state.lit.includes(i)){ cells[i].classList.remove('picked'); cells[i].classList.add('wrong'); }
-    });
-    const falsePositives = state.picked.filter(i=>!state.lit.includes(i)).length;
-    const roundScore = Math.max(0, hits - falsePositives);
-    const perfect = hits===state.lit.length && falsePositives===0;
-    state.total += state.lit.length;
-    state.correct += hits;
-    document.getElementById('gr-score').textContent = state.correct+' / '+state.total;
-    window.PG_SCORES.grid = {correct:state.correct,total:state.total,level:state.level,rounds:state.round,distractor:state.dcorrect+'/'+state.dtotal};
-
-    if(perfect && state.level<state.maxLevel) state.level++;
-    else if(!perfect && falsePositives>0 && state.level>1) state.level--;
-    document.getElementById('gr-level').textContent = state.level+' / '+state.maxLevel;
-    renderLadder('gr-ladder', state.level, state.maxLevel);
-
-    const fb = document.getElementById('gr-feedback');
-    fb.className = 'feedback show ' + (perfect?'good':'bad');
-    fb.textContent = perfect ? 'Perfect recall — moving up a level.' : `You recalled ${hits} of ${state.lit.length}, with ${falsePositives} incorrect picks.`;
-    document.getElementById('gr-submit').style.display='none';
-
-    setTimeout(()=>{ if(state.active) startRound(); }, 1400);
-  }
-
-  document.getElementById('gr-start').addEventListener('click', ()=>{
-    state = { active:true, round:0, correct:0, total:0, dcorrect:0, dtotal:0, level:1, maxLevel:3, lit:[], picked:[], gridSize:4, dotCount:4, phase:'idle' };
-    document.getElementById('gr-start-card').style.display='none';
-    document.getElementById('gr-play-card').style.display='block';
-    document.getElementById('gr-score').textContent='0 / 0';
-    document.getElementById('gr-dscore').textContent='0 / 0';
-    renderLadder('gr-ladder',1,3);
-    startRound();
+  document.getElementById('final-download').addEventListener('click', ()=>{
+    if(window.PG_LAST_PAYLOAD) downloadFile(window.PG_LAST_PAYLOAD);
   });
-  document.getElementById('gr-submit').addEventListener('click', submitRecall);
-  renderLadder('gr-ladder',1,3);
+  document.getElementById('final-copy').addEventListener('click', ()=>{
+    if(!window.PG_LAST_PAYLOAD) return;
+    const txt = payloadToText(window.PG_LAST_PAYLOAD);
+    const btn = document.getElementById('final-copy');
+    const done = ()=>{ btn.textContent='Copied'; setTimeout(()=>{ btn.textContent='Copy responses'; },2000); };
+    if(navigator.clipboard && navigator.clipboard.writeText){
+      navigator.clipboard.writeText(txt).then(done).catch(()=>{ fallbackCopy(txt); done(); });
+    } else { fallbackCopy(txt); done(); }
+  });
 })();
 </script>
 </body>
